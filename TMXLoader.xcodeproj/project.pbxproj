@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400CA7D51B9F5D7C00C177E6 /* TMXMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 400CA7CB1B9F5D7C00C177E6 /* TMXMap.cpp */; };
+		400CA7D61B9F5D7C00C177E6 /* TMXTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 400CA7CD1B9F5D7C00C177E6 /* TMXTile.cpp */; };
+		400CA7D71B9F5D7C00C177E6 /* TMXTileLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 400CA7CF1B9F5D7C00C177E6 /* TMXTileLayer.cpp */; };
+		400CA7D81B9F5D7C00C177E6 /* TMXTileSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 400CA7D11B9F5D7C00C177E6 /* TMXTileSet.cpp */; };
+		400CA7D91B9F5D7C00C177E6 /* TMXLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 400CA7D31B9F5D7C00C177E6 /* TMXLoader.cpp */; };
 		4085673B1B9CDB7800733B9E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4085673A1B9CDB7800733B9E /* main.cpp */; };
 		408567421B9CDC0E00733B9E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408567411B9CDC0E00733B9E /* SDL2.framework */; };
 		408567441B9F4B2300733B9E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408567431B9F4B2300733B9E /* SDL2_image.framework */; };
@@ -25,6 +30,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		400CA7CB1B9F5D7C00C177E6 /* TMXMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TMXMap.cpp; sourceTree = "<group>"; };
+		400CA7CC1B9F5D7C00C177E6 /* TMXMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMXMap.h; sourceTree = "<group>"; };
+		400CA7CD1B9F5D7C00C177E6 /* TMXTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TMXTile.cpp; sourceTree = "<group>"; };
+		400CA7CE1B9F5D7C00C177E6 /* TMXTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMXTile.h; sourceTree = "<group>"; };
+		400CA7CF1B9F5D7C00C177E6 /* TMXTileLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TMXTileLayer.cpp; sourceTree = "<group>"; };
+		400CA7D01B9F5D7C00C177E6 /* TMXTileLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMXTileLayer.h; sourceTree = "<group>"; };
+		400CA7D11B9F5D7C00C177E6 /* TMXTileSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TMXTileSet.cpp; sourceTree = "<group>"; };
+		400CA7D21B9F5D7C00C177E6 /* TMXTileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMXTileSet.h; sourceTree = "<group>"; };
+		400CA7D31B9F5D7C00C177E6 /* TMXLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TMXLoader.cpp; sourceTree = "<group>"; };
+		400CA7D41B9F5D7C00C177E6 /* TMXLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMXLoader.h; sourceTree = "<group>"; };
+		400CA7DB1B9F65F800C177E6 /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
+		400CA7DC1B9F65F800C177E6 /* manual.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = manual.html; sourceTree = "<group>"; };
+		400CA7DD1B9F65F800C177E6 /* rapidxml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml.hpp; sourceTree = "<group>"; };
+		400CA7DE1B9F65F800C177E6 /* rapidxml_iterators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml_iterators.hpp; sourceTree = "<group>"; };
+		400CA7DF1B9F65F800C177E6 /* rapidxml_print.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml_print.hpp; sourceTree = "<group>"; };
+		400CA7E01B9F65F800C177E6 /* rapidxml_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rapidxml_utils.hpp; sourceTree = "<group>"; };
 		408567371B9CDB7800733B9E /* TMXLoader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TMXLoader; sourceTree = BUILT_PRODUCTS_DIR; };
 		4085673A1B9CDB7800733B9E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		408567411B9CDC0E00733B9E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -44,6 +65,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		400CA7CA1B9F5D7C00C177E6 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				400CA7CB1B9F5D7C00C177E6 /* TMXMap.cpp */,
+				400CA7CC1B9F5D7C00C177E6 /* TMXMap.h */,
+				400CA7CD1B9F5D7C00C177E6 /* TMXTile.cpp */,
+				400CA7CE1B9F5D7C00C177E6 /* TMXTile.h */,
+				400CA7CF1B9F5D7C00C177E6 /* TMXTileLayer.cpp */,
+				400CA7D01B9F5D7C00C177E6 /* TMXTileLayer.h */,
+				400CA7D11B9F5D7C00C177E6 /* TMXTileSet.cpp */,
+				400CA7D21B9F5D7C00C177E6 /* TMXTileSet.h */,
+			);
+			path = Levels;
+			sourceTree = "<group>";
+		};
+		400CA7DA1B9F65F800C177E6 /* RapidXML */ = {
+			isa = PBXGroup;
+			children = (
+				400CA7DB1B9F65F800C177E6 /* license.txt */,
+				400CA7DC1B9F65F800C177E6 /* manual.html */,
+				400CA7DD1B9F65F800C177E6 /* rapidxml.hpp */,
+				400CA7DE1B9F65F800C177E6 /* rapidxml_iterators.hpp */,
+				400CA7DF1B9F65F800C177E6 /* rapidxml_print.hpp */,
+				400CA7E01B9F65F800C177E6 /* rapidxml_utils.hpp */,
+			);
+			name = RapidXML;
+			path = TMXLoader/RapidXML;
+			sourceTree = SOURCE_ROOT;
+		};
 		4085672E1B9CDB7800733B9E = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +115,10 @@
 		408567391B9CDB7800733B9E /* TMXLoader */ = {
 			isa = PBXGroup;
 			children = (
+				400CA7DA1B9F65F800C177E6 /* RapidXML */,
+				400CA7CA1B9F5D7C00C177E6 /* Levels */,
+				400CA7D31B9F5D7C00C177E6 /* TMXLoader.cpp */,
+				400CA7D41B9F5D7C00C177E6 /* TMXLoader.h */,
 				4085673A1B9CDB7800733B9E /* main.cpp */,
 			);
 			path = TMXLoader;
@@ -126,7 +180,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				400CA7D91B9F5D7C00C177E6 /* TMXLoader.cpp in Sources */,
+				400CA7D51B9F5D7C00C177E6 /* TMXMap.cpp in Sources */,
+				400CA7D71B9F5D7C00C177E6 /* TMXTileLayer.cpp in Sources */,
+				400CA7D81B9F5D7C00C177E6 /* TMXTileSet.cpp in Sources */,
 				4085673B1B9CDB7800733B9E /* main.cpp in Sources */,
+				400CA7D61B9F5D7C00C177E6 /* TMXTile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +324,7 @@
 				408567401B9CDB7800733B9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

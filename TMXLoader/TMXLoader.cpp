@@ -19,7 +19,7 @@ void TMXLoader::loadLevel(const char* levelPath)
 	m_currentMap.parse<0>(xml);
 	rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
 
-	std::shared_ptr<TMXMap> newMap;// = std::shared_ptr<TMXMap>(new TMXMap());
+    TMXMap newMap;// = new TMXMap();// = std::shared_ptr<TMXMap>(new TMXMap());
 
 	loadMapSettings(newMap, parentNode);
 	loadTileSets(newMap, parentNode);
@@ -28,12 +28,12 @@ void TMXLoader::loadLevel(const char* levelPath)
 	m_mapContainer[levelPath] = newMap;
 
 	// print level data for testing
-	m_mapContainer[levelPath]->printData();
+	m_mapContainer[levelPath].printData();
 
 }
 
 
-void TMXLoader::loadMapSettings(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> *parentNode)
+void TMXLoader::loadMapSettings(TMXMap& map, rapidxml::xml_node<> *parentNode)
 {
 	std::vector<std::string> mapData;
 
@@ -47,19 +47,20 @@ void TMXLoader::loadMapSettings(std::shared_ptr<TMXMap>& map, rapidxml::xml_node
 
 	unsigned int colour = stoi(colourSubstring, 0, 16);
 
-	mapData.push_back(to_string(colour / 0x10000));
-	mapData.push_back(to_string((colour / 0x100) % 0x100));
-	mapData.push_back(to_string(colour / 0x10000));
+	mapData.push_back(std::to_string(colour / 0x10000));
+	mapData.push_back(std::to_string((colour / 0x100) % 0x100));
+	mapData.push_back(std::to_string(colour / 0x10000));
 
 	std::unordered_map<std::string, std::string> propertiesMap;
 
 	loadProperties(propertiesMap, parentNode);
 
- 	map = std::shared_ptr<TMXMap>(new TMXMap(mapData, propertiesMap));
+ 	//map = std::shared_ptr<TMXMap>(new TMXMap(mapData, propertiesMap));
+    map = TMXMap(mapData, propertiesMap);
 }
 
 
-void TMXLoader::loadTileSets(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> *parentNode)
+void TMXLoader::loadTileSets(TMXMap& map, rapidxml::xml_node<> *parentNode)
 {
 	// Create a new node based on the parent node
 	rapidxml::xml_node<> *currentNode = parentNode;
@@ -110,11 +111,11 @@ void TMXLoader::loadTileSets(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> 
 			{
 				if (strcmp(attr->name(), "trans") == 0)
 				{
-					unsigned int colour = stoi(attr->value(), 0, 16);
+					unsigned int colour = std::stoi(attr->value(), 0, 16);
 		
-					tileSetData["red"] = to_string(colour / 0x10000);
-					tileSetData["green"] = to_string((colour / 0x100) % 0x100);
-					tileSetData["blue"] = to_string(colour / 0x10000);
+					tileSetData["red"] = std::to_string(colour / 0x10000);
+					tileSetData["green"] = std::to_string((colour / 0x100) % 0x100);
+					tileSetData["blue"] = std::to_string(colour / 0x10000);
 				}
 				else
 				{
@@ -144,7 +145,7 @@ void TMXLoader::loadTileSets(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> 
 			}
 
 			// Pass the new tileset data to the level
- 			map->addTileSet(TMXTileSet(tileSetData, propertiesMap, tileVector));
+ 			map.addTileSet(TMXTileSet(tileSetData, propertiesMap, tileVector));
 
 			// Move to the next tileset node and increment the counter
 			if (currentNode->parent()->next_sibling("tileset") == nullptr)
@@ -161,7 +162,7 @@ void TMXLoader::loadTileSets(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> 
 }
 
 
-void TMXLoader::loadLayers(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> *parentNode)
+void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 {
 	// Create a new node based on the parent node
 	rapidxml::xml_node<> *currentNode = parentNode;
@@ -224,7 +225,7 @@ void TMXLoader::loadLayers(std::shared_ptr<TMXMap>& map, rapidxml::xml_node<> *p
 		}
 
 		// Add the newly read layer to the level
-		map->addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, finalTileVector, layerProperties));
+		map.addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, finalTileVector, layerProperties));
 		
 		// Move to the next layer
 		currentNode = currentNode->parent()->parent()->next_sibling("layer");
