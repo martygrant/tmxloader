@@ -2,8 +2,8 @@
 
 #pragma region Class Constructors & Destructors 
 
-TMXTileLayer::TMXTileLayer(const char* name, unsigned int width, unsigned int height, std::vector<unsigned int> tileVector, std::unordered_map<std::string, std::string> layerProperties) : m_name(name), m_width(width), 
-	m_height(height), m_tileVector(tileVector), m_layerProperties(layerProperties)
+TMXTileLayer::TMXTileLayer(const char* name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, std::vector<unsigned int**> tiles) : m_name(name), m_width(width),
+	m_height(height), m_layerProperties(layerProperties), m_tiles(tiles)
 {
 }
 
@@ -47,16 +47,6 @@ unsigned int TMXTileLayer::getHeight()
 	return m_height;
 }
 
-/*
-* Gets the tile vector of a TMXTileLayer instance.
-*
-* @return std::vector<unsigned int> - vector containing the layer's tiles.
-*/
-std::vector<unsigned int> TMXTileLayer::getTileVector()
-{
-	return m_tileVector;
-}
-
 #pragma endregion
 
 
@@ -71,10 +61,10 @@ void TMXTileLayer::printData()
 	{
 		std::cout << "\n" << index->first << " - " << index->second << std::endl;
 	}
-
+/*
 	std::cout << "\nTiles: ";
 	for (unsigned int index = 0; index < m_tileVector.size(); ++index)
 	{
 		std::cout << "\n Tile " << index << ": " << m_tileVector[index];
-	}
+	}*/
 }

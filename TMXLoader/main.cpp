@@ -85,7 +85,7 @@ void renderSpriteSheet()
 
 void testRenderMap()
 {
-    static int map[10][10];
+    static unsigned int map[10][10];
    
     static bool runonce = true;
     
@@ -96,14 +96,16 @@ void testRenderMap()
         {
             for (int j = 0; j < 10; ++j)
             {
-                map[i][j] = loader->getMap().getLayer().getTileVector()[k];
+               // map[i][j] = loader->getMap().getLayer().getTileVector()[k];
+                map[i][j] = loader->getMap().getLayer().getTileLayer()[0][i][j];
+               // std::cout << "whaat"<< loader->getMap().getLayer().getTileLayer()[0][0];
                 ++k;
             }
         }
         runonce = false;
     }
     
-    int tileID = 0;
+    char tileID = 0;
     
     int width = 25;
     int height = 25;
@@ -121,14 +123,7 @@ void testRenderMap()
             // only render if it is an actual tile (1, 2 or 3)
             if (tileID > 0)
             {
-                if (map[i][j] == 1)
-                    tileID = 0;
-                else if (map[i][j] == 2)
-                    tileID = 25;
-                else tileID = 50;
-                
-            
-                SDL_Rect srcrect = { tileID, 0, width, height };
+                SDL_Rect srcrect = { (tileID - 1) * 25, 0, width, height };
                 SDL_Rect dstrect = { column, row, width, height };
                 SDL_RenderCopy(renderer, spriteSheet, &srcrect, &dstrect);
             }

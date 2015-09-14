@@ -6,6 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <sstream>
 
 #include "rapidxml.hpp"
 #include "rapidxml_print.hpp"

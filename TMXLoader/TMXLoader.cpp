@@ -171,7 +171,15 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 	currentNode = currentNode->first_node("layer");
 	
 	std::vector<std::vector<char*>> layerVector;
-	std::vector<std::vector<char*>> tileVector;
+
+    std::vector<unsigned int**> tiles;
+    unsigned int** tileLayer = new unsigned int*[map.getHeight()];
+    for (int i = 0; i < map.getHeight(); ++i)
+    {
+        tileLayer[i] = new unsigned int[map.getWidth()];
+    }
+    
+    
 	unsigned int counter = 0;
 	char* layerName = "";
 	unsigned int layerWidth = 0;
@@ -185,7 +193,7 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 		// Push a new vector onto the layer vector
 		std::vector<char*> tempLayerVec;
 		layerVector.push_back(tempLayerVec);
-
+        
 		// Read data into the current layer vector
 		for (rapidxml::xml_attribute<char> *attr = currentNode->first_attribute(); attr; attr = attr->next_attribute())
 		{
@@ -199,33 +207,46 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 		// Move to the tile nodes for the current layer
 		currentNode = currentNode->first_node("tile");
 
-		// Push a new tile vector to hold the tiles 
-		std::vector<char*> tempTileVec;
-		tileVector.push_back(tempTileVec);
+        
+        tiles.push_back(new unsigned int*[map.getHeight()]);
+        for (int i = 0; i < map.getHeight(); ++i)
+        {
+            tiles.back()[i] = new unsigned int[map.getWidth()];
+        }
+        
+        int numberOfTilesInRow = map.getWidth();
+        int currentTile = 0;
+        int currentRow = 0;
+        // Loop whilst there are still tiles to be read and add them to the vector
+        while (currentNode != nullptr)
+        {
+            if (currentTile < numberOfTilesInRow)
+            {
+                
+                std::stringstream ss; ss << currentNode->first_attribute()->value();
+                unsigned int tile; ss >> tile;
+                tiles.back()[currentRow][currentTile] = tile;
 
-		// Loop whilst there are still tiles to be read and add them to the vector
-		while (currentNode != nullptr)
-		{
-			tileVector[counter].push_back(currentNode->first_attribute()->value());
-			if (currentNode->next_sibling("tile") == nullptr)
-				break;
-			else
-				currentNode = currentNode->next_sibling("tile");
-		}
-
+                currentTile++;
+                if (currentNode->next_sibling("tile") == nullptr)
+                    break;
+                else
+                    currentNode = currentNode->next_sibling("tile");
+            }
+            else
+            {
+                currentTile = 0;
+                currentRow++;
+            }
+                             
+        }
+        
 		layerName = layerVector[counter][0];
 		layerWidth = atoi(layerVector[counter][1]);
 		layerHeight = atoi(layerVector[counter][2]);
 
-		std::vector<unsigned int> finalTileVector(tileVector[counter].size());
-
-		for (unsigned int index = 0; index < tileVector[counter].size(); ++index)
-		{
-			finalTileVector[index] = atoi(tileVector[counter][index]);
-		}
-
 		// Add the newly read layer to the level
-		map.addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, finalTileVector, layerProperties));
+		map.addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, layerProperties, tiles));
 		
 		// Move to the next layer
 		currentNode = currentNode->parent()->parent()->next_sibling("layer");
