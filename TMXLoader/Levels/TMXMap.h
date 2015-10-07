@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <array>
 
 #include "TMXTileSet.h"
 #include "TMXTileLayer.h"
@@ -23,7 +24,7 @@ public:
 	unsigned int getHeight();
 	unsigned int getTileWidth();
 	unsigned int getTileHeight();
-	std::vector<unsigned int> getBackgroundColour();
+    std::array<unsigned int, 3> getBackgroundColourArray();
 
 	void printData();
     
@@ -37,7 +38,7 @@ private:
 	unsigned int m_height;
 	unsigned int m_tileWidth;
 	unsigned int m_tileHeight;
-	std::vector<unsigned int> m_backgroundColour;
+    std::array<unsigned int, 3> m_backgroundColourArray;
 
 	/* User-defined Properties */
 private:

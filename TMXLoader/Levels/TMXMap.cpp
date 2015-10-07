@@ -1,6 +1,5 @@
 #include "TMXMap.h"
 
-#pragma region Class Constructors & Destructors 
 
 TMXMap::TMXMap(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap) : m_propertiesMap(propertiesMap)
 {
@@ -11,21 +10,16 @@ TMXMap::TMXMap(const std::vector<std::string>& mapData, const std::unordered_map
 	m_height = stoi(mapData[4]);
 	m_tileWidth = stoi(mapData[5]);
 	m_tileHeight = stoi(mapData[6]);
-	m_backgroundColour.reserve(3);
-	m_backgroundColour.push_back(stoi(mapData[7]));
-	m_backgroundColour.push_back(stoi(mapData[8]));
-	m_backgroundColour.push_back(stoi(mapData[9]));
+    m_backgroundColourArray[0] = stoi(mapData[8]);
+    m_backgroundColourArray[1] = stoi(mapData[8]);
+    m_backgroundColourArray[2] = stoi(mapData[8]);
 }
 
 
 TMXMap::~TMXMap()
 {
-	m_backgroundColour.clear();
 }
 
-#pragma endregion
-
-#pragma region Map Settings
 
 float TMXMap::getVersion()
 {
@@ -63,18 +57,11 @@ unsigned int TMXMap::getTileHeight()
 }
 
 
-std::vector<unsigned int> TMXMap::getBackgroundColour()
+std::array<unsigned int, 3> TMXMap::getBackgroundColourArray()
 {
-	return m_backgroundColour;
+    return m_backgroundColourArray;
 }
 
-#pragma endregion
-
-#pragma region User-defined Properties
-
-#pragma endregion
-
-#pragma region TileSets
 
 /*
 * Adds a new TileSet to the TileSet vector of this TMXMap instance, including all the properties of the TileSet.
@@ -92,9 +79,6 @@ void TMXMap::addTileSet(TMXTileSet newTileSet)
 	m_tileSetVector.push_back(newTileSet);
 }
 
-#pragma endregion
-
-#pragma region Layers
 
 /*
 * Adds a new Tile Layer to this TMXMap instance.
@@ -109,7 +93,6 @@ void TMXMap::addLayer(TMXTileLayer newLayer)
 	m_layerVector.push_back(newLayer);
 }
 
-#pragma endregion
 
 void TMXMap::printData()
 {
@@ -120,7 +103,7 @@ void TMXMap::printData()
 		<< "\nHeight: " << m_height
 		<< "\nTile Width: " << m_tileWidth
 		<< "\nTileHeight: " << m_tileHeight
-		<< "\nBackground Colour: " << m_backgroundColour[0] << "," << m_backgroundColour[1] << "," << m_backgroundColour[2];
+		<< "\nBackground Colour: " << m_backgroundColourArray[0] << "," << m_backgroundColourArray[1] << "," << m_backgroundColourArray[2];
 
 	std::cout << "\n\nTest map properties:\n";
 	for (auto index = m_propertiesMap.begin(); index != m_propertiesMap.end(); ++index)

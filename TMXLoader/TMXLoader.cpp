@@ -8,6 +8,8 @@ TMXLoader::TMXLoader()
 
 TMXLoader::~TMXLoader()
 {
+    m_mapContainer.clear();
+    std::unordered_map<std::string, TMXMap>().swap(m_mapContainer);
 }
 
 
