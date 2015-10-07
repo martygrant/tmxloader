@@ -77,21 +77,21 @@ void testRenderMap(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* load
 {
     char tileID = 0;
     
-    int tileWidth = loader->getMap().getTileWidth();
-    int tileHeight = loader->getMap().getTileHeight();
+    int tileWidth = loader->getMap("Assets/testlevel.tmx")->getTileWidth();
+    int tileHeight = loader->getMap("Assets/testlevel.tmx")->getTileHeight();
 
-    for (int i = 0; i < loader->getMap().getWidth(); ++i)
+    for (int i = 0; i < loader->getMap("Assets/testlevel.tmx")->getWidth(); ++i)
     {
-        for (int j = 0; j < loader->getMap().getHeight(); ++j)
+        for (int j = 0; j < loader->getMap("Assets/testlevel.tmx")->getHeight(); ++j)
         {
             // get the tile at current position
-            tileID = loader->getMap().getLayer().getTileLayer()[0][i][j];
+            tileID = loader->getMap("Assets/testlevel.tmx")->getLayer().getTileLayer()[0][i][j];
             
             // only render if it is an actual tile (1, 2 or 3)
             if (tileID > 0)
             {
-                SDL_Rect srcrect = { (tileID - 1) * 25, 0, tileWidth, tileHeight };
-                SDL_Rect dstrect = { j * 25, i * 25, tileWidth, tileHeight };
+                SDL_Rect srcrect = { (tileID - 1) * tileHeight, 0 * tileHeight, tileWidth, tileHeight };
+                SDL_Rect dstrect = { j * tileWidth, i * tileHeight, tileWidth, tileHeight };
                 SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
             }
         }

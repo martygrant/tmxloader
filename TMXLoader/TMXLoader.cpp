@@ -13,8 +13,10 @@ TMXLoader::~TMXLoader()
 
 void TMXLoader::loadLevel(const char* levelPath)
 {
-	char* xml = (char*)loadFile(levelPath, true);
-
+	void* file = loadFile(levelPath, true);
+    char* xml = (char*)file;
+    free(file);
+    
 	rapidxml::xml_document<char> m_currentMap;
 	m_currentMap.parse<0>(xml);
 	rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
@@ -30,6 +32,12 @@ void TMXLoader::loadLevel(const char* levelPath)
 	// print level data for testing
 	m_mapContainer[levelPath].printData();
 
+}
+
+
+TMXMap* TMXLoader::getMap(std::string mapName)
+{
+    return &m_mapContainer.at(mapName);
 }
 
 

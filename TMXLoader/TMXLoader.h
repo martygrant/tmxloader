@@ -25,8 +25,7 @@ public:
 
 public:
 	void loadLevel(const char* levelPath);
-    
-    TMXMap getMap() { return m_mapContainer.at("Assets/testlevel.tmx"); }
+    TMXMap* getMap(std::string mapName);
 
 private:
 	void loadMapSettings(TMXMap& map, rapidxml::xml_node<> *parentNode);
