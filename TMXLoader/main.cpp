@@ -85,8 +85,6 @@ void renderSpriteSheet()
 
 void testRenderMap()
 {
-    static unsigned int map[10][10];
-   
     char tileID = 0;
     
     int width = 25;
