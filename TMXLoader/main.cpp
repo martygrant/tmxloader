@@ -85,7 +85,7 @@ void testRenderMap(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* load
         for (int j = 0; j < loader->getMap("Assets/testlevel.tmx")->getHeight(); ++j)
         {
             // get the tile at current position
-            tileID = loader->getMap("Assets/testlevel.tmx")->getLayer().getTileLayer()[0][i][j];
+            tileID = loader->getMap("Assets/testlevel.tmx")->getLayer("Tile Layer 1").getTileLayer()[0][i][j];
             
             // only render if it is an actual tile (1, 2 or 3)
             if (tileID > 0)

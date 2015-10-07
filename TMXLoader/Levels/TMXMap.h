@@ -28,7 +28,7 @@ public:
 
 	void printData();
     
-    TMXTileLayer getLayer() { return m_layerVector[0]; }
+    TMXTileLayer getLayer(std::string layerName);
 
 private:
 	float m_version;

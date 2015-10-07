@@ -18,6 +18,14 @@ TMXMap::TMXMap(const std::vector<std::string>& mapData, const std::unordered_map
 
 TMXMap::~TMXMap()
 {
+    m_propertiesMap.clear();
+    std::unordered_map<std::string, std::string>().swap(m_propertiesMap);
+
+    m_tileSetVector.clear();
+    std::vector<TMXTileSet>().swap(m_tileSetVector);
+    
+    m_layerVector.clear();
+    std::vector<TMXTileLayer>().swap(m_layerVector);
 }
 
 
@@ -60,6 +68,20 @@ unsigned int TMXMap::getTileHeight()
 std::array<unsigned int, 3> TMXMap::getBackgroundColourArray()
 {
     return m_backgroundColourArray;
+}
+
+
+TMXTileLayer TMXMap::getLayer(std::string layerName)
+{
+    for (unsigned int index = 0; index < m_layerVector.size(); ++index)
+    {
+        if (m_layerVector[index].getName() == layerName)
+        {
+            return m_layerVector[index];
+        }
+    }
+    // todo implement null object pattern
+    return m_layerVector.front();
 }
 
 
