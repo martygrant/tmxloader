@@ -87,24 +87,6 @@ void testRenderMap()
 {
     static unsigned int map[10][10];
    
-    static bool runonce = true;
-    
-    int k = 0;
-    if (runonce == true)
-    {
-        for (int i = 0; i < 10; ++i)
-        {
-            for (int j = 0; j < 10; ++j)
-            {
-               // map[i][j] = loader->getMap().getLayer().getTileVector()[k];
-                map[i][j] = loader->getMap().getLayer().getTileLayer()[0][i][j];
-               // std::cout << "whaat"<< loader->getMap().getLayer().getTileLayer()[0][0];
-                ++k;
-            }
-        }
-        runonce = false;
-    }
-    
     char tileID = 0;
     
     int width = 25;
@@ -118,7 +100,8 @@ void testRenderMap()
         for (int j = 0; j < 10; ++j)
         {
             // get the tile at current position
-            tileID = map[i][j];
+            //tileID = map[i][j];
+            tileID = loader->getMap().getLayer().getTileLayer()[0][i][j];
             
             // only render if it is an actual tile (1, 2 or 3)
             if (tileID > 0)
