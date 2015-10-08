@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <memory>
 #include <sstream>
+#include <fstream>
 
 #include "rapidxml.hpp"
 #include "rapidxml_print.hpp"
@@ -34,7 +35,7 @@ private:
 	void loadProperties(std::unordered_map<std::string, std::string>& propertiesMap, rapidxml::xml_node<> *parentNode);
 
 private:
-	static void* loadFile(const char * filename, bool appendNull);
+    std::string loadFile(const char* filePath);
 	
 private:
 	std::unordered_map<std::string, TMXMap> m_mapContainer;

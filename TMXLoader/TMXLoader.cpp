@@ -15,12 +15,10 @@ TMXLoader::~TMXLoader()
 
 void TMXLoader::loadLevel(const char* levelPath)
 {
-	void* file = loadFile(levelPath, true);
-    char* xml = (char*)file;
-    free(file);
+    std::string file = loadFile(levelPath);
     
 	rapidxml::xml_document<char> m_currentMap;
-	m_currentMap.parse<0>(xml);
+	m_currentMap.parse<0>((char*)file.c_str());
 	rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
 
     TMXMap newMap;// = new TMXMap();// = std::shared_ptr<TMXMap>(new TMXMap());
@@ -33,7 +31,6 @@ void TMXLoader::loadLevel(const char* levelPath)
 
 	// print level data for testing
 	m_mapContainer[levelPath].printData();
-
 }
 
 
@@ -288,26 +285,44 @@ void TMXLoader::loadProperties(std::unordered_map<std::string, std::string>& pro
 }
 
 
-void* TMXLoader::loadFile(const char * filename, bool appendNull) 
+std::string TMXLoader::loadFile(const char* filePath)
 {
-	FILE* f = fopen(filename, "r");
-	if (!f) {
-		return 0;
-	}
+    std::ifstream is ("Assets/testlevel.tmx", std::ifstream::binary);
+    if (is) {
+        // get length of file:
+        is.seekg (0, is.end);
+        int length = is.tellg();
+        is.seekg (0, is.beg);
+        
+        char* buffer = new char [length];
+        
+        std::cout << "Reading " << length << " characters... ";
+        // read data as a block:
+        is.read (buffer,length);
+        
+        if (is)
+            std::cout << "all characters read successfully.";// << (char*)buffer;
+        else
+            std::cout << "error: only " << is.gcount() << " could be read";
+        is.close();
+        
+        // ...buffer contains the entire file...
+        delete[] buffer;
+        //std::cout << (char*)buffer;
+        //return buffer;
+    }
+    
+    std::ifstream in(filePath, std::ios::in | std::ios::binary);
 
-	fseek(f, 0, SEEK_END);
-	auto length = ftell(f) + appendNull;
-	fseek(f, 0, SEEK_SET);
-
-	void* buffer = malloc(length);
-	fread(buffer, length, 1, f);
-	fclose(f);
-
-	if (appendNull) {
-		((char*)buffer)[length - 1] = 0;
-	}
-
-	return buffer;
+        std::string contents;
+        in.seekg(0, std::ios::end);
+        contents.resize(in.tellg());
+        in.seekg(0, std::ios::beg);
+        in.read(&contents[0], contents.size());
+        in.close();
+    std::cout << contents;
+    
+    return contents;
 }
 
 
