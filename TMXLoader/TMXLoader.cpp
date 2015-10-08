@@ -191,7 +191,7 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
     
     
 	unsigned int counter = 0;
-	char* layerName = "";
+	char* layerName = nullptr;
 	unsigned int layerWidth = 0;
 	unsigned int layerHeight = 0;
 	std::unordered_map<std::string, std::string> layerProperties;
