@@ -67,10 +67,11 @@ void TMXTileLayer::printData()
 	{
 		std::cout << "\n" << index->first << " - " << index->second << std::endl;
 	}
-/*
+
 	std::cout << "\nTiles: ";
-	for (unsigned int index = 0; index < m_tileVector.size(); ++index)
+	for (unsigned int index = 0; index < m_tiles.size(); ++index)
 	{
-		std::cout << "\n Tile " << index << ": " << m_tileVector[index];
-	}*/
+        for (int j = 0; j < m_width; j++)
+		std::cout << "\n Tile " << index << ": " << m_tiles[index][j][0];
+	}
 }
