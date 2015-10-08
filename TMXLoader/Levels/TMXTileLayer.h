@@ -18,7 +18,7 @@ public:
 	unsigned int getWidth();
 	unsigned int getHeight();
     
-    std::vector<unsigned int**> getTileLayer() { return m_tiles; }
+    std::vector<unsigned int**> getTileLayer();
     
 	void printData();
 

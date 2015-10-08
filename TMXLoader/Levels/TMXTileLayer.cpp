@@ -1,6 +1,5 @@
 #include "TMXTileLayer.h"
 
-#pragma region Class Constructors & Destructors 
 
 TMXTileLayer::TMXTileLayer(const char* name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, std::vector<unsigned int**> tiles) : m_name(name), m_width(width),
 	m_height(height), m_layerProperties(layerProperties), m_tiles(tiles)
@@ -10,12 +9,13 @@ TMXTileLayer::TMXTileLayer(const char* name, unsigned int width, unsigned int he
 
 TMXTileLayer::~TMXTileLayer()
 {
-
+    m_tiles.clear();
+    std::vector<unsigned int**>().swap(m_tiles);
+    
+    m_layerProperties.clear();
+    std::unordered_map<std::string, std::string>().swap(m_layerProperties);
 }
 
-#pragma region
-
-#pragma region Getter Functions
 
 /*
 * Gets the name of a TMXTileLayer instance.
@@ -27,6 +27,7 @@ const char* TMXTileLayer::getName()
 	return m_name;
 }
 
+
 /*
 * Gets the width of a TMXTileLayer instance.
 *
@@ -36,6 +37,7 @@ unsigned int TMXTileLayer::getWidth()
 {
 	return m_width;
 }
+
 
 /*
 * Gets the height of a TMXTileLayer instance.
@@ -47,7 +49,11 @@ unsigned int TMXTileLayer::getHeight()
 	return m_height;
 }
 
-#pragma endregion
+
+std::vector<unsigned int**> TMXTileLayer::getTileLayer()
+{
+    return m_tiles;
+}
 
 
 void TMXTileLayer::printData()

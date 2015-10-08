@@ -8,6 +8,8 @@ TMXTile::TMXTile(unsigned int tileID, std::unordered_map<std::string, std::strin
 
 TMXTile::~TMXTile()
 {
+    m_propertiesMap.clear();
+    std::unordered_map<std::string, std::string>().swap(m_propertiesMap);
 }
 
 

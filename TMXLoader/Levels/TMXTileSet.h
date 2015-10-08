@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
+#include <array>
 
 #include "TMXTile.h"
 
@@ -28,7 +29,7 @@ public:
 	unsigned int getMargin();
 	unsigned int getOffsetX();
 	unsigned int getOffsetY();
-	std::vector<unsigned int> getTransparentColour();
+    std::array<unsigned int, 3> getTransparentColourArray();
 
 	void printData();
 
@@ -46,7 +47,7 @@ private:
 	unsigned int m_margin;
 	unsigned int m_offsetX;
 	unsigned int m_offsetY;
-	std::vector<unsigned int> m_transparentColour;
+    std::array<unsigned int, 3> m_transparentColourArray;
 	std::unordered_map<std::string, std::string> m_propertiesMap;
 
 	std::vector<TMXTile> m_tileVector;

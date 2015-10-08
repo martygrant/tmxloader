@@ -1,7 +1,5 @@
 #include "TMXTileSet.h"
 
-#pragma region Class Constructors & Destructors
-
 /*
 * Constructor for TMXTileSet. Sets all properties for a TMXTileSet insance.
 *
@@ -21,22 +19,22 @@ TMXTileSet::TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData
 	m_offsetY = atoi(tileSetData["tileoffsetY"].c_str());
 	m_spacing = atoi(tileSetData["spacing"].c_str());
 	m_margin = atoi(tileSetData["margin"].c_str());
-
-	m_transparentColour.reserve(3);
-	m_transparentColour.push_back(atoi(tileSetData["red"].c_str()));
-	m_transparentColour.push_back(atoi(tileSetData["green"].c_str()));
-	m_transparentColour.push_back(atoi(tileSetData["blue"].c_str()));
+    
+    m_transparentColourArray[0] = atoi(tileSetData["red"].c_str());
+    m_transparentColourArray[1] = atoi(tileSetData["green"].c_str());
+    m_transparentColourArray[2] = atoi(tileSetData["blue"].c_str());
 }
 
 
 TMXTileSet::~TMXTileSet()
 {
-
+    m_propertiesMap.clear();
+    std::unordered_map<std::string, std::string>().swap(m_propertiesMap);
+    
+    m_tileVector.clear();
+    std::vector<TMXTile>().swap(m_tileVector);
 }
 
-#pragma endregion
-
-#pragma region Getter Functions
 
 /*
 * Gets the name for a instance of TMXTileSet.
@@ -48,6 +46,7 @@ std::string TMXTileSet::getName()
 	return m_name;
 }
 
+
 /*
 * Gets the source image path for an instance of TMXTileSet.
 *
@@ -57,6 +56,7 @@ std::string TMXTileSet::getSource()
 {
 	return m_source;
 }
+
 
 /*
 * Gets the first GID for an instance of TMXTileSet.
@@ -68,6 +68,7 @@ unsigned int TMXTileSet::getFirstGID()
 	return m_firstGID;
 }
 
+
 /*
 * Gets the last GID for an instance of TMXTileSet.
 *
@@ -77,6 +78,7 @@ unsigned int TMXTileSet::getLastGID()
 {
 	return m_lastGID;
 }
+
 
 /*
 * Gets the image width for an instance of TMXTileSet.
@@ -88,6 +90,7 @@ unsigned int TMXTileSet::getImageWidth()
 	return m_imageWidth;
 }
 
+
 /*
 * Gets the image height for an instance of TMXTileSet.
 *
@@ -97,6 +100,7 @@ unsigned int TMXTileSet::getImageHeight()
 {
 	return m_imageHeight;
 }
+
 
 /*
 * Gets the tile width for an instance of TMXTileSet.
@@ -108,6 +112,7 @@ unsigned int TMXTileSet::getTileWidth()
 	return m_tileWidth;
 }
 
+
 /*
 * Gets the tile height for an instance of TMXTileSet.
 *
@@ -117,6 +122,7 @@ unsigned int TMXTileSet::getTileHeight()
 {
 	return m_tileHeight;
 }
+
 
 /*
 * Gets the spacing for an instance of TMXTileSet.
@@ -128,6 +134,7 @@ unsigned int TMXTileSet::getSpacing()
 	return m_spacing;
 }
 
+
 /*
 * Gets the margin for an instance of TMXTileSet.
 *
@@ -137,6 +144,7 @@ unsigned int TMXTileSet::getMargin()
 {
 	return m_margin;
 }
+
 
 /*
 * Gets the X offset for an instance of TMXTileSet.
@@ -148,6 +156,7 @@ unsigned int TMXTileSet::getOffsetX()
 	return m_offsetX;
 }
 
+
 /*
 * Gets the Y offset for an instance of TMXTileSet.
 *
@@ -158,17 +167,17 @@ unsigned int TMXTileSet::getOffsetY()
 	return m_offsetY;
 }
 
+
 /*
 * Gets the transparent colour of a tileset.
 *
-* @return std::vector<unsigned int> - vector containing 3 ints which represent a transparency colour for the tileset.
+* @return std::array<unsigned int> - array containing 3 unsigned ints which represent a transparency colour for the tileset.
 */
-std::vector<unsigned int> TMXTileSet::getTransparentColour()
+std::array<unsigned int, 3> TMXTileSet::getTransparentColourArray()
 {
-	return m_transparentColour;
+	return m_transparentColourArray;
 }
 
-#pragma endregion
 
 void TMXTileSet::printData()
 {
@@ -184,7 +193,7 @@ void TMXTileSet::printData()
 		<< "\nMargin: " << m_margin
 		<< "\noffsetX: " << m_offsetX
 		<< "\noffsetY: " << m_offsetY
-		<< "\ntransparentColour: " << m_transparentColour[0] << "," << m_transparentColour[1] << "," << m_transparentColour[2] << "\n";
+		<< "\ntransparentColour: " << m_transparentColourArray[0] << "," << m_transparentColourArray[1] << "," << m_transparentColourArray[2] << "\n";
 
 	std::cout << "\n Tileset properties:";
 	for (auto index = m_propertiesMap.begin(); index != m_propertiesMap.end(); ++index)
