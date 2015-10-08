@@ -287,42 +287,23 @@ void TMXLoader::loadProperties(std::unordered_map<std::string, std::string>& pro
 
 std::string TMXLoader::loadFile(const char* filePath)
 {
-    std::ifstream is ("Assets/testlevel.tmx", std::ifstream::binary);
-    if (is) {
-        // get length of file:
-        is.seekg (0, is.end);
-        int length = is.tellg();
-        is.seekg (0, is.beg);
-        
-        char* buffer = new char [length];
-        
-        std::cout << "Reading " << length << " characters... ";
-        // read data as a block:
-        is.read (buffer,length);
-        
-        if (is)
-            std::cout << "all characters read successfully.";// << (char*)buffer;
-        else
-            std::cout << "error: only " << is.gcount() << " could be read";
-        is.close();
-        
-        // ...buffer contains the entire file...
-        delete[] buffer;
-        //std::cout << (char*)buffer;
-        //return buffer;
+    std::ifstream file(filePath, std::ios::in | std::ios::binary);
+    std::string fileContents = "";
+    
+    if (file)
+    {
+        file.seekg(0, std::ios::end);
+        fileContents.resize(file.tellg());
+        file.seekg(0, std::ios::beg);
+        file.read(&fileContents[0], fileContents.size());
+        file.close();
+    }
+    else
+    {
+        std::cout << "File: " << filePath << " could not be opened." << std::endl;
     }
     
-    std::ifstream in(filePath, std::ios::in | std::ios::binary);
-
-        std::string contents;
-        in.seekg(0, std::ios::end);
-        contents.resize(in.tellg());
-        in.seekg(0, std::ios::beg);
-        in.read(&contents[0], contents.size());
-        in.close();
-    std::cout << contents;
-    
-    return contents;
+    return fileContents;
 }
 
 
