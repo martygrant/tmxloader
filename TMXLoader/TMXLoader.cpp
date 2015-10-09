@@ -60,7 +60,7 @@ void TMXLoader::loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xm
 
 	loadProperties(propertiesMap, parentNode);
     
-    map->testf(mapData, propertiesMap);
+    map->setMapSettings(mapData, propertiesMap);
 }
 
 

@@ -12,11 +12,11 @@ class TMXMap
 {
 	/* Class constructors & destructors */
 public:
-    TMXMap() { }
-	TMXMap(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
+	TMXMap();
 	~TMXMap();
 
-    void testf(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
+    /* Setter functions for map settings */
+    void setMapSettings(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
     
 	/* Getter functions for map settings */
 public:
