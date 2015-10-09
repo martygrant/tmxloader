@@ -19,24 +19,28 @@
 
 class TMXLoader
 {
+    /* Class constructors & destructors */
 public:
-	/* Class Constructor & Destructor */
 	TMXLoader();
 	~TMXLoader();
 
+    /* Map methods */
 public:
-	void loadLevel(const char* levelPath);
+    void loadMap(std::string levelPath);
     TMXMap* getMap(std::string mapName);
 
+    /* Map loading helper functions */
 private:
 	void loadMapSettings(TMXMap& map, rapidxml::xml_node<> *parentNode);
 	void loadTileSets(TMXMap& map, rapidxml::xml_node<> *parentNode);
 	void loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode);
 	void loadProperties(std::unordered_map<std::string, std::string>& propertiesMap, rapidxml::xml_node<> *parentNode);
 
+    /* File loading helper functions */
 private:
-    std::string loadFile(const char* filePath);
-	
+    std::string loadFile(std::string filePath);
+
+    /* Unordered map container for loaded Maps */
 private:
 	std::unordered_map<std::string, TMXMap> m_mapContainer;
 };

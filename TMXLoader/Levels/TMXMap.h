@@ -10,13 +10,13 @@
 
 class TMXMap 
 {
-	/* Class Constructors & Destructors */
+	/* Class constructors & destructors */
 public:
     TMXMap() { }
 	TMXMap(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
 	~TMXMap();
 
-	/* Map Settings */
+	/* Getter functions for map settings */
 public:
 	float getVersion();
 	std::string getOrientation();
@@ -27,9 +27,8 @@ public:
     std::array<unsigned int, 3> getBackgroundColourArray();
 
 	void printData();
-    
-    TMXTileLayer getLayer(std::string layerName);
 
+    /* Map settings variables */
 private:
 	float m_version;
 	std::string m_orientation;
@@ -40,7 +39,7 @@ private:
 	unsigned int m_tileHeight;
     std::array<unsigned int, 3> m_backgroundColourArray;
 
-	/* User-defined Properties */
+	/* User-defined properties */
 private:
 	std::unordered_map<std::string, std::string> m_propertiesMap;
 
@@ -54,6 +53,7 @@ private:
 	/* Layers */
 public:
 	void addLayer(TMXTileLayer newLayer);
+    TMXTileLayer getLayer(std::string layerName);
 
 private:
 	std::vector<TMXTileLayer> m_layerVector;

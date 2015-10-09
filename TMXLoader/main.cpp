@@ -131,7 +131,7 @@ int main(int argc, const char * argv[])
     SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet1.png");
     
     TMXLoader* loader = new TMXLoader();
-    loader->loadLevel("Assets/testlevel.tmx");
+    loader->loadMap("Assets/testlevel.tmx");
     
     bool running = true;
     SDL_Event events;

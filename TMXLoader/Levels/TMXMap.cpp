@@ -71,20 +71,6 @@ std::array<unsigned int, 3> TMXMap::getBackgroundColourArray()
 }
 
 
-TMXTileLayer TMXMap::getLayer(std::string layerName)
-{
-    for (unsigned int index = 0; index < m_layerVector.size(); ++index)
-    {
-        if (m_layerVector[index].getName() == layerName)
-        {
-            return m_layerVector[index];
-        }
-    }
-    // todo implement null object pattern
-    return m_layerVector.front();
-}
-
-
 /*
 * Adds a new TileSet to the TileSet vector of this TMXMap instance, including all the properties of the TileSet.
 *
@@ -113,6 +99,20 @@ void TMXMap::addTileSet(TMXTileSet newTileSet)
 void TMXMap::addLayer(TMXTileLayer newLayer)
 {
 	m_layerVector.push_back(newLayer);
+}
+
+
+TMXTileLayer TMXMap::getLayer(std::string layerName)
+{
+    for (unsigned int index = 0; index < m_layerVector.size(); ++index)
+    {
+        if (m_layerVector[index].getName() == layerName)
+        {
+            return m_layerVector[index];
+        }
+    }
+    // todo implement null object pattern
+    return m_layerVector.front();
 }
 
 

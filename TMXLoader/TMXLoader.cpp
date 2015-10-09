@@ -13,7 +13,7 @@ TMXLoader::~TMXLoader()
 }
 
 
-void TMXLoader::loadLevel(const char* levelPath)
+void TMXLoader::loadMap(std::string levelPath)
 {
     std::string file = loadFile(levelPath);
     
@@ -21,7 +21,7 @@ void TMXLoader::loadLevel(const char* levelPath)
 	m_currentMap.parse<0>((char*)file.c_str());
 	rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
 
-    TMXMap newMap;// = new TMXMap();// = std::shared_ptr<TMXMap>(new TMXMap());
+    TMXMap newMap;
 
 	loadMapSettings(newMap, parentNode);
 	loadTileSets(newMap, parentNode);
@@ -285,7 +285,7 @@ void TMXLoader::loadProperties(std::unordered_map<std::string, std::string>& pro
 }
 
 
-std::string TMXLoader::loadFile(const char* filePath)
+std::string TMXLoader::loadFile(std::string filePath)
 {
     std::ifstream file(filePath, std::ios::in | std::ios::binary);
     std::string fileContents = "";
