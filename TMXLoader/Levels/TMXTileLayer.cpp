@@ -1,7 +1,7 @@
 #include "TMXTileLayer.h"
 
 
-TMXTileLayer::TMXTileLayer(const char* name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, unsigned int** tileArray) : m_name(name), m_width(width),
+TMXTileLayer::TMXTileLayer(std::string name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, unsigned int** tileArray) : m_name(name), m_width(width),
 	m_height(height), m_layerProperties(layerProperties), m_tileArray(tileArray)
 {
 }
@@ -22,7 +22,7 @@ TMXTileLayer::~TMXTileLayer()
 *
 * @return const char* - the name of the TMXTileLayer instance.
 */
-const char* TMXTileLayer::getName()
+std::string TMXTileLayer::getName()
 {
 	return m_name;
 }

@@ -10,13 +10,13 @@
 
 class TMXTileSet
 {
-	/* Class Constructors & Destructors */
+	/* Class constructors & destructors */
 public:
 	TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData, std::unordered_map<std::string, std::string>& propertiesMap, std::vector<TMXTile>& tileVector);
 	~TMXTileSet();
 
 public:
-	/* Getter Functions */
+	/* Getter functions */
 	std::string getName();
 	std::string getSource();
 	unsigned int getFirstGID();
@@ -31,9 +31,11 @@ public:
 	unsigned int getOffsetY();
     std::array<unsigned int, 3> getTransparentColourArray();
 
+    /* Debug functions */
+public:
 	void printData();
 
-	/* TileSet Properties */
+	/* TileSet variables */
 private:
 	std::string m_name;
 	std::string m_source;
@@ -48,7 +50,9 @@ private:
 	unsigned int m_offsetX;
 	unsigned int m_offsetY;
     std::array<unsigned int, 3> m_transparentColourArray;
-	std::unordered_map<std::string, std::string> m_propertiesMap;
-
 	std::vector<TMXTile> m_tileVector;
+    
+    /* User-defined properties */
+private:
+    std::unordered_map<std::string, std::string> m_propertiesMap;
 };

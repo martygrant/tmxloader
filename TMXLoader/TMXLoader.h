@@ -1,16 +1,12 @@
 #pragma once
 
-#include <iostream>
-#include <stdlib.h>
 #include <vector>
 #include <string>
 #include <unordered_map>
-#include <memory>
 #include <sstream>
 #include <fstream>
 
 #include "rapidxml.hpp"
-#include "rapidxml_print.hpp"
 
 #include "Levels/TMXMap.h"
 #include "Levels/TMXTileLayer.h"

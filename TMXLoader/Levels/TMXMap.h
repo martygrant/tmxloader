@@ -26,9 +26,11 @@ public:
 	unsigned int getTileHeight();
     std::array<unsigned int, 3> getBackgroundColourArray();
 
+    /* Debug functions */
+public:
 	void printData();
 
-    /* Map settings variables */
+    /* Map variables */
 private:
 	float m_version;
 	std::string m_orientation;
