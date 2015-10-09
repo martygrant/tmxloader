@@ -9,7 +9,8 @@ class TMXTileLayer
 {
 	/* Class Constructors & Destructors */
 public:
-	TMXTileLayer(const char* name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, std::vector<unsigned int**> tiles);
+	TMXTileLayer(const char* name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties,
+                 unsigned int** tilesArray);
 	~TMXTileLayer();
 
 	/* Getter Functions  */
@@ -18,7 +19,7 @@ public:
 	unsigned int getWidth();
 	unsigned int getHeight();
     
-    std::vector<unsigned int**> getTileLayer();
+    unsigned int** getTileArray();
     
 	void printData();
 
@@ -27,7 +28,7 @@ private:
 	const char* m_name;
 	unsigned int m_width;
 	unsigned int m_height;
-    std::vector<unsigned int**> m_tiles;
+    unsigned int** m_tileArray;
 
 	/* User-defined Properties */
 private:

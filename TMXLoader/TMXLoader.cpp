@@ -253,7 +253,7 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 		layerHeight = atoi(layerVector[counter][2]);
 
 		// Add the newly read layer to the level
-		map.addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, layerProperties, tiles));
+		map.addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, layerProperties, tiles.back()));
 		
 		// Move to the next layer
 		currentNode = currentNode->parent()->parent()->next_sibling("layer");
