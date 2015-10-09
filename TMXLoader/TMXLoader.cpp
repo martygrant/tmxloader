@@ -177,12 +177,6 @@ void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_nod
 	std::vector<std::vector<char*>> layerVector;
 
     std::vector<unsigned int**> tiles;
-    unsigned int** tileLayer = new unsigned int*[map->getHeight()];
-    for (int i = 0; i < map->getHeight(); ++i)
-    {
-        tileLayer[i] = new unsigned int[map->getWidth()];
-    }
-    
     
 	unsigned int counter = 0;
 	char* layerName = nullptr;
