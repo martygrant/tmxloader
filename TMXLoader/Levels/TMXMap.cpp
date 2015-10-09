@@ -1,9 +1,9 @@
 #include "TMXMap.h"
 
 
-TMXMap::TMXMap(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap) : m_propertiesMap(propertiesMap)
+TMXMap::TMXMap(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap) //: m_propertiesMap(propertiesMap)
 {
-	m_version = stoi(mapData[0]);
+	/*m_version = stoi(mapData[0]);
 	m_orientation = mapData[1];
     m_renderOrder = mapData[2];
 	m_width = stoi(mapData[3]);
@@ -12,7 +12,24 @@ TMXMap::TMXMap(const std::vector<std::string>& mapData, const std::unordered_map
 	m_tileHeight = stoi(mapData[6]);
     m_backgroundColourArray[0] = stoi(mapData[8]);
     m_backgroundColourArray[1] = stoi(mapData[8]);
+    m_backgroundColourArray[2] = stoi(mapData[8]);*/
+}
+
+
+void TMXMap::testf(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap)
+{
+    m_version = stoi(mapData[0]);
+    m_orientation = mapData[1];
+    m_renderOrder = mapData[2];
+    m_width = stoi(mapData[3]);
+    m_height = stoi(mapData[4]);
+    m_tileWidth = stoi(mapData[5]);
+    m_tileHeight = stoi(mapData[6]);
+    m_backgroundColourArray[0] = stoi(mapData[8]);
+    m_backgroundColourArray[1] = stoi(mapData[8]);
     m_backgroundColourArray[2] = stoi(mapData[8]);
+    
+    m_propertiesMap = propertiesMap;
 }
 
 

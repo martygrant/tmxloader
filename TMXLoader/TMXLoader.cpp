@@ -9,7 +9,7 @@ TMXLoader::TMXLoader()
 TMXLoader::~TMXLoader()
 {
     m_mapContainer.clear();
-    std::unordered_map<std::string, TMXMap>().swap(m_mapContainer);
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>>().swap(m_mapContainer);
 }
 
 
@@ -21,26 +21,24 @@ void TMXLoader::loadMap(std::string levelPath)
 	m_currentMap.parse<0>((char*)file.c_str());
 	rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
 
-    TMXMap newMap;
-
-	loadMapSettings(newMap, parentNode);
-	loadTileSets(newMap, parentNode);
-	loadLayers(newMap, parentNode);
-
-	m_mapContainer[levelPath] = newMap;
+    m_mapContainer[levelPath] = std::unique_ptr<TMXMap>(new TMXMap());
+    
+    loadMapSettings(m_mapContainer[levelPath], parentNode);
+	loadTileSets(m_mapContainer[levelPath], parentNode);
+	loadLayers(m_mapContainer[levelPath], parentNode);
 
 	// print level data for testing
-	m_mapContainer[levelPath].printData();
+	m_mapContainer[levelPath]->printData();
 }
 
 
-TMXMap* TMXLoader::getMap(std::string mapName)
+std::unique_ptr<TMXMap> const &TMXLoader::getMap(std::string mapName)
 {
-    return &m_mapContainer.at(mapName);
+    return m_mapContainer.at(mapName);
 }
 
 
-void TMXLoader::loadMapSettings(TMXMap& map, rapidxml::xml_node<> *parentNode)
+void TMXLoader::loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
 	std::vector<std::string> mapData;
 
@@ -61,13 +59,12 @@ void TMXLoader::loadMapSettings(TMXMap& map, rapidxml::xml_node<> *parentNode)
 	std::unordered_map<std::string, std::string> propertiesMap;
 
 	loadProperties(propertiesMap, parentNode);
-
- 	//map = std::shared_ptr<TMXMap>(new TMXMap(mapData, propertiesMap));
-    map = TMXMap(mapData, propertiesMap);
+    
+    map->testf(mapData, propertiesMap);
 }
 
 
-void TMXLoader::loadTileSets(TMXMap& map, rapidxml::xml_node<> *parentNode)
+void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
 	// Create a new node based on the parent node
 	rapidxml::xml_node<> *currentNode = parentNode;
@@ -152,7 +149,7 @@ void TMXLoader::loadTileSets(TMXMap& map, rapidxml::xml_node<> *parentNode)
 			}
 
 			// Pass the new tileset data to the level
- 			map.addTileSet(TMXTileSet(tileSetData, propertiesMap, tileVector));
+ 			map->addTileSet(TMXTileSet(tileSetData, propertiesMap, tileVector));
 
 			// Move to the next tileset node and increment the counter
 			if (currentNode->parent()->next_sibling("tileset") == nullptr)
@@ -169,7 +166,7 @@ void TMXLoader::loadTileSets(TMXMap& map, rapidxml::xml_node<> *parentNode)
 }
 
 
-void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
+void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
 	// Create a new node based on the parent node
 	rapidxml::xml_node<> *currentNode = parentNode;
@@ -180,10 +177,10 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 	std::vector<std::vector<char*>> layerVector;
 
     std::vector<unsigned int**> tiles;
-    unsigned int** tileLayer = new unsigned int*[map.getHeight()];
-    for (int i = 0; i < map.getHeight(); ++i)
+    unsigned int** tileLayer = new unsigned int*[map->getHeight()];
+    for (int i = 0; i < map->getHeight(); ++i)
     {
-        tileLayer[i] = new unsigned int[map.getWidth()];
+        tileLayer[i] = new unsigned int[map->getWidth()];
     }
     
     
@@ -215,13 +212,13 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 		currentNode = currentNode->first_node("tile");
 
         
-        tiles.push_back(new unsigned int*[map.getHeight()]);
-        for (int i = 0; i < map.getHeight(); ++i)
+        tiles.push_back(new unsigned int*[map->getHeight()]);
+        for (int i = 0; i < map->getHeight(); ++i)
         {
-            tiles.back()[i] = new unsigned int[map.getWidth()];
+            tiles.back()[i] = new unsigned int[map->getWidth()];
         }
         
-        int numberOfTilesInRow = map.getWidth();
+        int numberOfTilesInRow = map->getWidth();
         int currentTile = 0;
         int currentRow = 0;
         // Loop whilst there are still tiles to be read and add them to the vector
@@ -253,7 +250,7 @@ void TMXLoader::loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode)
 		layerHeight = atoi(layerVector[counter][2]);
 
 		// Add the newly read layer to the level
-		map.addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, layerProperties, tiles.back()));
+		map->addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, layerProperties, tiles.back()));
 		
 		// Move to the next layer
 		currentNode = currentNode->parent()->parent()->next_sibling("layer");

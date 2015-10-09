@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <sstream>
 #include <fstream>
+#include <memory>
 
 #include "rapidxml.hpp"
 
@@ -23,13 +24,13 @@ public:
     /* Map methods */
 public:
     void loadMap(std::string levelPath);
-    TMXMap* getMap(std::string mapName);
-
+    std::unique_ptr<TMXMap> const &getMap(std::string mapName);
+    
     /* Map loading helper functions */
 private:
-	void loadMapSettings(TMXMap& map, rapidxml::xml_node<> *parentNode);
-	void loadTileSets(TMXMap& map, rapidxml::xml_node<> *parentNode);
-	void loadLayers(TMXMap& map, rapidxml::xml_node<> *parentNode);
+    void loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode);
+	void loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode);
+	void loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode);
 	void loadProperties(std::unordered_map<std::string, std::string>& propertiesMap, rapidxml::xml_node<> *parentNode);
 
     /* File loading helper functions */
@@ -38,6 +39,6 @@ private:
 
     /* Unordered map container for loaded Maps */
 private:
-	std::unordered_map<std::string, TMXMap> m_mapContainer;
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>> m_mapContainer;
 };
 

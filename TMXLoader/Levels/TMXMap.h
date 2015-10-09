@@ -16,6 +16,8 @@ public:
 	TMXMap(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
 	~TMXMap();
 
+    void testf(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
+    
 	/* Getter functions for map settings */
 public:
 	float getVersion();
