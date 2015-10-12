@@ -4,6 +4,12 @@
 //
 //  Created by Marty on 06/09/2015.
 //  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Available under MIT license. See License.txt for more information.
+//
+//  Uses RapidXML for file parsing.
+//  Copyright (c) 2006, 2007 Marcin Kalicinski
+//  http://rapidxml.sourceforge.net/
+//  See /RapidXML/License.txt for more information.
 //
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
