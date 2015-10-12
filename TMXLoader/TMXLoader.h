@@ -23,7 +23,7 @@ public:
 
     /* Map methods */
 public:
-    void loadMap(std::string levelPath);
+    void loadMap(std::string filePath);
     std::unique_ptr<TMXMap> const &getMap(std::string mapName);
     
     /* Map loading helper functions */
@@ -35,7 +35,7 @@ private:
 
     /* File loading helper functions */
 private:
-    std::string loadFile(std::string filePath);
+    bool loadFile(std::string filePath, std::string &fileContents);
 
     /* Unordered map container for loaded Maps */
 private:

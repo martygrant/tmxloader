@@ -13,22 +13,32 @@ TMXLoader::~TMXLoader()
 }
 
 
-void TMXLoader::loadMap(std::string levelPath)
+void TMXLoader::loadMap(std::string filePath)
 {
-    std::string file = loadFile(levelPath);
+    std::string fileContents = "";
+    bool fileLoaded = loadFile(filePath, fileContents);
     
-	rapidxml::xml_document<char> m_currentMap;
-	m_currentMap.parse<0>((char*)file.c_str());
-	rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
-
-    m_mapContainer[levelPath] = std::unique_ptr<TMXMap>(new TMXMap());
-    
-    loadMapSettings(m_mapContainer[levelPath], parentNode);
-	loadTileSets(m_mapContainer[levelPath], parentNode);
-	loadLayers(m_mapContainer[levelPath], parentNode);
-
-	// print level data for testing
-	m_mapContainer[levelPath]->printData();
+    if (fileLoaded == true)
+    {
+        rapidxml::xml_document<char> m_currentMap;
+        m_currentMap.parse<0>((char*)fileContents.c_str());
+        rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
+        
+        m_mapContainer[filePath] = std::unique_ptr<TMXMap>(new TMXMap());
+        
+        loadMapSettings(m_mapContainer[filePath], parentNode);
+        loadTileSets(m_mapContainer[filePath], parentNode);
+        loadLayers(m_mapContainer[filePath], parentNode);
+        
+        std::cout << "TMXLoader: loaded map '" << filePath << "' successfully" << std::endl;
+        
+        // print level data for testing
+        m_mapContainer[filePath]->printData();
+    }
+    else
+    {
+        std::cout << "TMXLoader: '" << filePath << "' could not be loaded." << std::endl;
+    }
 }
 
 
@@ -274,11 +284,10 @@ void TMXLoader::loadProperties(std::unordered_map<std::string, std::string>& pro
 }
 
 
-std::string TMXLoader::loadFile(std::string filePath)
+bool TMXLoader::loadFile(std::string filePath, std::string &fileContents)
 {
     std::ifstream file(filePath, std::ios::in | std::ios::binary);
-    std::string fileContents = "";
-    
+
     if (file)
     {
         file.seekg(0, std::ios::end);
@@ -286,13 +295,11 @@ std::string TMXLoader::loadFile(std::string filePath)
         file.seekg(0, std::ios::beg);
         file.read(&fileContents[0], fileContents.size());
         file.close();
+        
+        return true;
     }
-    else
-    {
-        std::cout << "File: " << filePath << " could not be opened." << std::endl;
-    }
-    
-    return fileContents;
+
+    return false;
 }
 
 
