@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Midnight Pacific. All rights reserved.
+//  Copyright (c) 2015 Martin Grant. All rights reserved.
 //
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
