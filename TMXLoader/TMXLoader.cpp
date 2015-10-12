@@ -1,3 +1,15 @@
+//
+//  TMXLoader.cpp
+//  TMXLoader
+//
+//  Created by Marty on 06/09/2015.
+//  Copyright (c) 2015 Midnight Pacific. All rights reserved.
+//
+//  www.midnightpacific.com
+//  contact@midnightpacific.com
+//  @_martingrant
+//
+
 #include "TMXLoader.h"
 
 

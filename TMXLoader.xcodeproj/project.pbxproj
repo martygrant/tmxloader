@@ -150,8 +150,9 @@
 		4085672F1B9CDB7800733B9E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = "";
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Midnight Pacific";
+				ORGANIZATIONNAME = "Martin Grant";
 				TargetAttributes = {
 					408567361B9CDB7800733B9E = {
 						CreatedOnToolsVersion = 6.4;
