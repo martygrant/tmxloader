@@ -18,6 +18,6 @@
 
 ### Who do I talk to? ###
 
-* @_martingrant
+* [@_martingrant](https://twitter.com/_martingrant)
 * www.midnightpacific.com
 * contact@midnightpacific.com
