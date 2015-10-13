@@ -14,6 +14,7 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
+//  http://bitbucket.org/martingrant/tmxloader
 //
 
 #pragma once
@@ -27,10 +28,10 @@
 
 #include "rapidxml.hpp"
 
-#include "Levels/TMXMap.h"
-#include "Levels/TMXTileLayer.h"
-#include "Levels/TMXTileSet.h"
-#include "Levels/TMXTile.h"
+#include "TMXMap.h"
+#include "TMXTileLayer.h"
+#include "TMXTileSet.h"
+#include "TMXTile.h"
 
 class TMXLoader
 {

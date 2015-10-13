@@ -14,6 +14,7 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
+//  http://bitbucket.org/martingrant/tmxloader
 //
 
 #include <iostream>
@@ -21,8 +22,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 
-#include "TMXLoader.h"
-#include "Levels/TMXMap.h"
+#include "TMXLoader/TMXLoader.h"
 
 bool update(SDL_Event &events)
 {

@@ -14,6 +14,7 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
+//  http://bitbucket.org/martingrant/tmxloader
 //
 
 #include "TMXTileLayer.h"
