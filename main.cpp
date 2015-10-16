@@ -47,75 +47,34 @@ bool update(SDL_Event &events)
 }
 
 
-void renderRectOutline(SDL_Renderer* renderer, SDL_Rect& rect, Uint8 red, Uint8 green, Uint8 blue)
-{
-    SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_TRANSPARENT);
-    SDL_RenderDrawRect(renderer, &rect);
-}
-
-
-void renderRectFilled(SDL_Renderer* renderer, SDL_Rect& rect, Uint8 red, Uint8 green, Uint8 blue)
-{
-    SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_TRANSPARENT);
-    SDL_RenderFillRect(renderer, &rect);
-}
-
-
-void renderTexture(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& destRect)
-{
-    SDL_RenderCopy(renderer, texture, NULL, &destRect);
-}
-
-
-void renderSpriteSheet(SDL_Renderer* renderer, SDL_Texture* texture)
-{
-    int tileWidth = 25;
-    int sheetWidth = 75;
-    int numberOfTiles = sheetWidth / tileWidth;
-    
-    for (int i = 0; i < numberOfTiles; ++i)
-    {
-        SDL_Rect srcrect = { tileWidth * i, 0, 25, 25 };
-        SDL_Rect dstrect = { i * 100, 100, 25, 25 };
-        
-        SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
-    }
-}
-
-
-void testRenderMap(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* loader)
-{
-    char tileID = 0;
-    
-    int tileWidth = loader->getMap("Assets/testlevel.tmx")->getTileWidth();
-    int tileHeight = loader->getMap("Assets/testlevel.tmx")->getTileHeight();
-
-    for (int i = 0; i < loader->getMap("Assets/testlevel.tmx")->getWidth(); ++i)
-    {
-        for (int j = 0; j < loader->getMap("Assets/testlevel.tmx")->getHeight(); ++j)
-        {
-            // get the tile at current position
-            tileID = loader->getMap("Assets/testlevel.tmx")->getLayer("Tile Layer 1").getTileArray()[i][j];
-            
-            // only render if it is an actual tile (1, 2 or 3)
-            if (tileID > 0)
-            {
-                SDL_Rect srcrect = { (tileID - 1) * tileHeight, 0 * tileHeight, tileWidth, tileHeight };
-                SDL_Rect dstrect = { j * tileWidth, i * tileHeight, tileWidth, tileHeight };
-                SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
-            }
-        }
-    }
-}
-
-
 void render(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* loader)
 {
     SDL_SetRenderDrawColor(renderer, 10, 255, 255, SDL_ALPHA_TRANSPARENT);
     SDL_RenderClear(renderer);
     
-    testRenderMap(renderer, texture, loader);
+    char tileID = 0;
     
+    int tileWidth = loader->getMap("Assets/9x9.tmx")->getTileWidth();
+    int tileHeight = loader->getMap("Assets/9x9.tmx")->getTileHeight();
+    
+    for (int i = 0; i < loader->getMap("Assets/9x9.tmx")->getWidth(); ++i)
+    {
+        for (int j = 0; j < loader->getMap("Assets/9x9.tmx")->getHeight(); ++j)
+        {
+            // get the tile at current position
+            tileID = loader->getMap("Assets/9x9.tmx")->getLayer("Tile Layer 1").getTileArray()[i][j];
+            
+            // only render if it is an actual tile (1, 2 or 3)
+            if (tileID > 0)
+            {
+                SDL_Rect srcrect = { ((tileID - 1) % 3) * tileWidth, ((tileID - 1) / 3) * tileHeight, tileWidth, tileHeight };
+                //SDL_Rect srcrect = { (tileID - 1) * 25, tileID * 25, 25, 25 };
+                SDL_Rect dstrect = { j * 25, i * 25, 25, 25 };
+                SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
+            }
+        }
+    }
+
     SDL_RenderPresent(renderer);
 }
 
@@ -138,10 +97,10 @@ int main(int argc, const char * argv[])
     
     SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
     
-    SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet1.png");
+    SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet2.png");
     
     TMXLoader* loader = new TMXLoader();
-    loader->loadMap("Assets/testlevel.tmx");
+    loader->loadMap("Assets/9x9.tmx");
     
     bool running = true;
     SDL_Event events;

@@ -207,7 +207,7 @@ void TMXTileSet::printData()
 		<< "\nimageWidth:" << m_imageWidth
 		<< "\nimageHeight: " << m_imageHeight
 		<< "\ntileWidth: " << m_tileWidth
-		<< "\ntileHeight" << m_tileHeight
+		<< "\ntileHeight: " << m_tileHeight
 		<< "\nSpacing: " << m_spacing
 		<< "\nMargin: " << m_margin
 		<< "\noffsetX: " << m_offsetX

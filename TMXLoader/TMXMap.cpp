@@ -150,7 +150,7 @@ void TMXMap::printData()
 		<< "\nWidth: " << m_width
 		<< "\nHeight: " << m_height
 		<< "\nTile Width: " << m_tileWidth
-		<< "\nTileHeight: " << m_tileHeight
+		<< "\nTile Height: " << m_tileHeight
 		<< "\nBackground Colour: " << m_backgroundColourArray[0] << "," << m_backgroundColourArray[1] << "," << m_backgroundColourArray[2];
 
 	std::cout << "\n\nTest map properties:\n";
