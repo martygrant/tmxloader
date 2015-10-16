@@ -103,31 +103,12 @@ std::string TMXMap::getRenderOrder()
 }
 
 
-/*
-* Adds a new TileSet to the TileSet vector of this TMXMap instance, including all the properties of the TileSet.
-*
-* @param const char* name - the name of the tile set.
-* @param const char* source - the actual image for the tile set (path to the file).
-* @param unsigned int firstGID - the unique ID of the first tile in the tile set.
-* @param unsigned int imageWidth - the width of the tile set image.
-* @param unsigned int imageHeight - the height of the tile set image.
-* @param unsigned int tileWidth - the width of individual tiles in the set.
-* @param unsigned int tileHeight - the height of individual tiles in the set.
-*/
 void TMXMap::addTileSet(TMXTileSet newTileSet)
 {
 	m_tileSetVector.push_back(newTileSet);
 }
 
 
-/*
-* Adds a new Tile Layer to this TMXMap instance.
-*
-* @param const char* name - the name of the layer.
-* @param unsigned int width - the width of the layer.
-* @param unsigned int height - the height of the layer.
-* @param std::vector<unsigned int> tileVector - vector containing all the tiles in the layer, identified by their GID.
-*/
 void TMXMap::addLayer(TMXTileLayer newLayer)
 {
 	m_layerVector.push_back(newLayer);

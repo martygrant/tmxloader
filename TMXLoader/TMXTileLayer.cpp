@@ -28,41 +28,23 @@ TMXTileLayer::TMXTileLayer(std::string name, unsigned int width, unsigned int he
 
 TMXTileLayer::~TMXTileLayer()
 {
-    //m_tiles.clear();
-    //std::vector<unsigned int**>().swap(m_tiles);
-    
     m_layerProperties.clear();
     std::unordered_map<std::string, std::string>().swap(m_layerProperties);
 }
 
 
-/*
-* Gets the name of a TMXTileLayer instance.
-*
-* @return const char* - the name of the TMXTileLayer instance.
-*/
 std::string TMXTileLayer::getName()
 {
 	return m_name;
 }
 
 
-/*
-* Gets the width of a TMXTileLayer instance.
-*
-* @return unsigned int - the width of the TMXTileLayer instance.
-*/
 unsigned int TMXTileLayer::getWidth()
 {
 	return m_width;
 }
 
 
-/*
-* Gets the height of a TMXTileLayer instance.
-*
-* @return unsigned int - the height of the TMXTileLayer instance.
-*/
 unsigned int TMXTileLayer::getHeight()
 {
 	return m_height;

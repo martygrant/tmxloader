@@ -19,11 +19,7 @@
 
 #include "TMXTileSet.h"
 
-/*
-* Constructor for TMXTileSet. Sets all properties for a TMXTileSet insance.
-*
-* @param std::unordered_map<std::string, std::string>& tileSetData - reference to a map holding data describing the tileset.
-*/
+
 TMXTileSet::TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData, std::unordered_map<std::string, std::string>& propertiesMap, std::vector<TMXTile>& tileVector) : m_propertiesMap(propertiesMap),
 	m_tileVector(tileVector)	
 {
@@ -56,143 +52,78 @@ TMXTileSet::~TMXTileSet()
 }
 
 
-/*
-* Gets the name for a instance of TMXTileSet.
-*
-* @return std::string - returns the name of the tile set instance.
-*/
 std::string TMXTileSet::getName()
 {
 	return m_name;
 }
 
 
-/*
-* Gets the source image path for an instance of TMXTileSet.
-*
-* @return std::string - returns the source image path of the tile set instance.
-*/
 std::string TMXTileSet::getSource()
 {
 	return m_source;
 }
 
 
-/*
-* Gets the first GID for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the unique ID of the first tile in the set.
-*/
 unsigned int TMXTileSet::getFirstGID()
 {
 	return m_firstGID;
 }
 
 
-/*
-* Gets the last GID for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the unique ID of the last tile in the set.
-*/
 unsigned int TMXTileSet::getLastGID()
 {
 	return m_lastGID;
 }
 
 
-/*
-* Gets the image width for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the width of the image of a tile set.
-*/
 unsigned int TMXTileSet::getImageWidth()
 {
 	return m_imageWidth;
 }
 
 
-/*
-* Gets the image height for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the height of the image of a tile set.
-*/
 unsigned int TMXTileSet::getImageHeight()
 {
 	return m_imageHeight;
 }
 
 
-/*
-* Gets the tile width for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the width of a tile in a set.
-*/
 unsigned int TMXTileSet::getTileWidth()
 {
 	return m_tileWidth;
 }
 
 
-/*
-* Gets the tile height for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the height of a tile in a set.
-*/
 unsigned int TMXTileSet::getTileHeight()
 {
 	return m_tileHeight;
 }
 
 
-/*
-* Gets the spacing for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the spacing of tiles in a set.
-*/
 unsigned int TMXTileSet::getSpacing()
 {
 	return m_spacing;
 }
 
 
-/*
-* Gets the margin for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the margin of a tile set.
-*/
 unsigned int TMXTileSet::getMargin()
 {
 	return m_margin;
 }
 
 
-/*
-* Gets the X offset for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the X offset of a tile set.
-*/
 unsigned int TMXTileSet::getOffsetX()
 {
 	return m_offsetX;
 }
 
 
-/*
-* Gets the Y offset for an instance of TMXTileSet.
-*
-* @return unsigned int - returns the Y offset of a tile set.
-*/
 unsigned int TMXTileSet::getOffsetY()
 {
 	return m_offsetY;
 }
 
 
-/*
-* Gets the transparent colour of a tileset.
-*
-* @return std::array<unsigned int> - array containing 3 unsigned ints which represent a transparency colour for the tileset.
-*/
 std::array<unsigned int, 3> TMXTileSet::getTransparentColourArray()
 {
 	return m_transparentColourArray;
