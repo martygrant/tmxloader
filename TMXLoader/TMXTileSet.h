@@ -49,6 +49,7 @@ public:
 	unsigned int getOffsetX();
 	unsigned int getOffsetY();
     std::array<unsigned int, 3> getTransparentColourArray();
+    unsigned int getTileCount();
 
     /* Debug functions */
 public:
@@ -69,6 +70,7 @@ private:
 	unsigned int m_offsetX;
 	unsigned int m_offsetY;
     std::array<unsigned int, 3> m_transparentColourArray;
+    unsigned int m_tileCount;
 	std::vector<TMXTile> m_tileVector;
     
     /* User-defined properties */

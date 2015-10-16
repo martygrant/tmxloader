@@ -38,6 +38,7 @@ TMXTileSet::TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData
 	m_offsetY = atoi(tileSetData["tileoffsetY"].c_str());
 	m_spacing = atoi(tileSetData["spacing"].c_str());
 	m_margin = atoi(tileSetData["margin"].c_str());
+    m_tileCount = atoi(tileSetData["tilecount"].c_str());
     
     m_transparentColourArray[0] = atoi(tileSetData["red"].c_str());
     m_transparentColourArray[1] = atoi(tileSetData["green"].c_str());
@@ -198,6 +199,12 @@ std::array<unsigned int, 3> TMXTileSet::getTransparentColourArray()
 }
 
 
+unsigned int TMXTileSet::getTileCount()
+{
+    return m_tileCount;
+}
+
+
 void TMXTileSet::printData()
 {
 	std::cout << "\nName: " << m_name
@@ -212,7 +219,8 @@ void TMXTileSet::printData()
 		<< "\nMargin: " << m_margin
 		<< "\noffsetX: " << m_offsetX
 		<< "\noffsetY: " << m_offsetY
-		<< "\ntransparentColour: " << m_transparentColourArray[0] << "," << m_transparentColourArray[1] << "," << m_transparentColourArray[2] << "\n";
+		<< "\ntransparentColour: " << m_transparentColourArray[0] << "," << m_transparentColourArray[1] << "," << m_transparentColourArray[2]
+        << "\nTile Count: " << m_tileCount;
 
 	std::cout << "\n Tileset properties:";
 	for (auto index = m_propertiesMap.begin(); index != m_propertiesMap.end(); ++index)

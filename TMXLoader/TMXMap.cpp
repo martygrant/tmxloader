@@ -97,6 +97,12 @@ std::array<unsigned int, 3> TMXMap::getBackgroundColourArray()
 }
 
 
+std::string TMXMap::getRenderOrder()
+{
+    return m_renderOrder;
+}
+
+
 /*
 * Adds a new TileSet to the TileSet vector of this TMXMap instance, including all the properties of the TileSet.
 *
@@ -151,7 +157,8 @@ void TMXMap::printData()
 		<< "\nHeight: " << m_height
 		<< "\nTile Width: " << m_tileWidth
 		<< "\nTile Height: " << m_tileHeight
-		<< "\nBackground Colour: " << m_backgroundColourArray[0] << "," << m_backgroundColourArray[1] << "," << m_backgroundColourArray[2];
+		<< "\nBackground Colour: " << m_backgroundColourArray[0] << "," << m_backgroundColourArray[1] << "," << m_backgroundColourArray[2]
+        << "\nRender Order: " << m_renderOrder;
 
 	std::cout << "\n\nTest map properties:\n";
 	for (auto index = m_propertiesMap.begin(); index != m_propertiesMap.end(); ++index)
