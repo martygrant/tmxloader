@@ -5,15 +5,16 @@
 * C++ loader and data structure for .tmx maps created by [Tiled Map Editor](http://www.mapeditor.org/).
 * Version 1.0.
 * Supports:
-** Tiled .tmx maps exported as XML
-** TileSets
-** Layers
-** Properties
+* * Tiled .tmx maps exported as XML
+* * TileSets
+* * Layers
+* * Properties
 * Not-supported yet:
-** Objects
-** Terrain
-** Tile-flipping
-** Image layers
+* * Objects
+* * Terrain
+* * Tile-flipping
+* * Image layers
+
 
 ### How do I get set up? ###
 
