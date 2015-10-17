@@ -34,17 +34,23 @@ TMXLoader::~TMXLoader()
 
 void TMXLoader::loadMap(std::string mapName, std::string filePath)
 {
+    // String to hold file contents
     std::string fileContents = "";
+    
+    // Attempt to load file using provided file path
     bool fileLoaded = loadFile(filePath, fileContents);
     
     if (fileLoaded == true)
     {
+        // Create new RapidXML document instance to use to parse map data
         rapidxml::xml_document<char> m_currentMap;
         m_currentMap.parse<0>((char*)fileContents.c_str());
         rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
         
+        // Add new TMXMap to m_mapContainer
         m_mapContainer[mapName] = std::unique_ptr<TMXMap>(new TMXMap());
         
+        // Load the map settings, tilesets and layers
         loadMapSettings(m_mapContainer[mapName], parentNode);
         loadTileSets(m_mapContainer[mapName], parentNode);
         loadLayers(m_mapContainer[mapName], parentNode);
@@ -60,12 +66,27 @@ void TMXLoader::loadMap(std::string mapName, std::string filePath)
 
 std::unique_ptr<TMXMap> const &TMXLoader::getMap(std::string mapName)
 {
-    return m_mapContainer.at(mapName);
+    // Attempt to find and return a map using provided name, else return nullptr
+    
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
+    
+    if (iterator == m_mapContainer.end())
+    {
+        std::cout << "TMXLoader: map '" << mapName << "' not found." << std::endl;
+    }
+    else
+    {
+        return iterator->second;
+    }
+    
+    return nullptr;
 }
 
 
 void TMXLoader::printMapData(std::string mapName)
 {
+    // Attempt to print data for a specific map
+    
     std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
     
     if (iterator == m_mapContainer.end())
@@ -81,13 +102,16 @@ void TMXLoader::printMapData(std::string mapName)
 
 void TMXLoader::loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
-	std::vector<std::string> mapData;
+	// Vector to hold map settings (version, orientation, width, height etc.)
+    std::vector<std::string> mapData;
 
+    // Push found settings onto back of vector, which are attributes of first xml node "map"
 	for (rapidxml::xml_attribute<char> *attr = parentNode->first_attribute(); attr; attr = attr->next_attribute())
 	{
 		mapData.push_back(attr->value());
 	}
 
+    // Background colour is stored in hexadecimal, next few lines coverts to RGB and pushes onto vector
 	std::string colourString = mapData[6];
 	std::string colourSubstring = colourString.substr(1, colourString.length());
 
@@ -99,6 +123,7 @@ void TMXLoader::loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xm
 
 	std::unordered_map<std::string, std::string> propertiesMap;
 
+    // Load any user-defined properties
 	loadProperties(propertiesMap, parentNode);
     
     map->setMapSettings(mapData, propertiesMap);
@@ -157,7 +182,8 @@ void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_n
 				if (strcmp(attr->name(), "trans") == 0)
 				{
 					unsigned int colour = std::stoi(attr->value(), 0, 16);
-		
+                    
+                    // Convert from hex to RGB
 					tileSetData["red"] = std::to_string(colour / 0x10000);
 					tileSetData["green"] = std::to_string((colour / 0x100) % 0x100);
 					tileSetData["blue"] = std::to_string(colour / 0x10000);
@@ -189,7 +215,7 @@ void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_n
 				}
 			}
 
-			// Pass the new tileset data to the level
+			// Pass the new tileset data to the map
  			map->addTileSet(TMXTileSet(tileSetData, propertiesMap, tileVector));
 
 			// Move to the next tileset node and increment the counter

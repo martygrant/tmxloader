@@ -54,15 +54,15 @@ void render(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* loader)
     
     char tileID = 0;
     
-    int tileWidth = loader->getMap("9x9")->getTileWidth();
-    int tileHeight = loader->getMap("9x9")->getTileHeight();
+    int tileWidth = loader->getMap("testmap")->getTileWidth();
+    int tileHeight = loader->getMap("testmap")->getTileHeight();
     
-    for (int i = 0; i < loader->getMap("9x9")->getWidth(); ++i)
+    for (int i = 0; i < loader->getMap("testmap")->getWidth(); ++i)
     {
-        for (int j = 0; j < loader->getMap("9x9")->getHeight(); ++j)
+        for (int j = 0; j < loader->getMap("testmap")->getHeight(); ++j)
         {
             // get the tile at current position
-            tileID = loader->getMap("9x9")->getLayer("Tile Layer 1").getTileArray()[i][j];
+            tileID = loader->getMap("testmap")->getLayer("Tile Layer 1").getTileArray()[i][j];
             
             // only render if it is an actual tile (tileID = 0 means no tile / don't render anything here)
             if (tileID > 0)
@@ -96,11 +96,11 @@ int main(int argc, const char * argv[])
     
     SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
     
-    SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet2.png");
+    SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet.png");
     
     TMXLoader* loader = new TMXLoader();
-    loader->loadMap("9x9", "Assets/9x9.tmx");
-    loader->printMapData("9x9");
+    loader->loadMap("testmap", "Assets/testmap.tmx");
+    loader->printMapData("testmap");
     
     bool running = true;
     SDL_Event events;
