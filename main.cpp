@@ -33,9 +33,9 @@ bool update(SDL_Event &events)
             case SDL_WINDOWEVENT:
                 switch (events.window.event)
                 {
-                case SDL_WINDOWEVENT_CLOSE:
-                    return false;
-                    break;
+                    case SDL_WINDOWEVENT_CLOSE:
+                        return false;
+                        break;
                 }
                 break;
             case SDL_QUIT:
@@ -54,21 +54,20 @@ void render(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* loader)
     
     char tileID = 0;
     
-    int tileWidth = loader->getMap("Assets/9x9.tmx")->getTileWidth();
-    int tileHeight = loader->getMap("Assets/9x9.tmx")->getTileHeight();
+    int tileWidth = loader->getMap("9x9")->getTileWidth();
+    int tileHeight = loader->getMap("9x9")->getTileHeight();
     
-    for (int i = 0; i < loader->getMap("Assets/9x9.tmx")->getWidth(); ++i)
+    for (int i = 0; i < loader->getMap("9x9")->getWidth(); ++i)
     {
-        for (int j = 0; j < loader->getMap("Assets/9x9.tmx")->getHeight(); ++j)
+        for (int j = 0; j < loader->getMap("9x9")->getHeight(); ++j)
         {
             // get the tile at current position
-            tileID = loader->getMap("Assets/9x9.tmx")->getLayer("Tile Layer 1").getTileArray()[i][j];
+            tileID = loader->getMap("9x9")->getLayer("Tile Layer 1").getTileArray()[i][j];
             
-            // only render if it is an actual tile (1, 2 or 3)
+            // only render if it is an actual tile (tileID = 0 means no tile / don't render anything here)
             if (tileID > 0)
             {
                 SDL_Rect srcrect = { ((tileID - 1) % 3) * tileWidth, ((tileID - 1) / 3) * tileHeight, tileWidth, tileHeight };
-                //SDL_Rect srcrect = { (tileID - 1) * 25, tileID * 25, 25, 25 };
                 SDL_Rect dstrect = { j * 25, i * 25, 25, 25 };
                 SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
             }
@@ -100,7 +99,8 @@ int main(int argc, const char * argv[])
     SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet2.png");
     
     TMXLoader* loader = new TMXLoader();
-    loader->loadMap("Assets/9x9.tmx");
+    loader->loadMap("9x9", "Assets/9x9.tmx");
+    loader->printMapData("9x9");
     
     bool running = true;
     SDL_Event events;

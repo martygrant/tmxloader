@@ -32,7 +32,7 @@ TMXLoader::~TMXLoader()
 }
 
 
-void TMXLoader::loadMap(std::string filePath)
+void TMXLoader::loadMap(std::string mapName, std::string filePath)
 {
     std::string fileContents = "";
     bool fileLoaded = loadFile(filePath, fileContents);
@@ -43,20 +43,17 @@ void TMXLoader::loadMap(std::string filePath)
         m_currentMap.parse<0>((char*)fileContents.c_str());
         rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
         
-        m_mapContainer[filePath] = std::unique_ptr<TMXMap>(new TMXMap());
+        m_mapContainer[mapName] = std::unique_ptr<TMXMap>(new TMXMap());
         
-        loadMapSettings(m_mapContainer[filePath], parentNode);
-        loadTileSets(m_mapContainer[filePath], parentNode);
-        loadLayers(m_mapContainer[filePath], parentNode);
+        loadMapSettings(m_mapContainer[mapName], parentNode);
+        loadTileSets(m_mapContainer[mapName], parentNode);
+        loadLayers(m_mapContainer[mapName], parentNode);
         
-        std::cout << "TMXLoader: loaded map '" << filePath << "' successfully" << std::endl;
-        
-        // print level data for testing
-        m_mapContainer[filePath]->printData();
+        std::cout << "TMXLoader: loaded map '" << mapName << "' from: '" << filePath << "' successfully" << std::endl;
     }
     else
     {
-        std::cout << "TMXLoader: '" << filePath << "' could not be loaded." << std::endl;
+        std::cout << "TMXLoader: map '" << mapName << "' at '" << filePath << "' could not be loaded." << std::endl;
     }
 }
 
@@ -64,6 +61,21 @@ void TMXLoader::loadMap(std::string filePath)
 std::unique_ptr<TMXMap> const &TMXLoader::getMap(std::string mapName)
 {
     return m_mapContainer.at(mapName);
+}
+
+
+void TMXLoader::printMapData(std::string mapName)
+{
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
+    
+    if (iterator == m_mapContainer.end())
+    {
+        std::cout << "TMXLoader: map '" << mapName << "' not found." << std::endl;
+    }
+    else
+    {
+        iterator->second->printData();
+    }
 }
 
 

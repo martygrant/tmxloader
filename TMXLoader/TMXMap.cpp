@@ -131,8 +131,7 @@ TMXTileLayer TMXMap::getLayer(std::string layerName)
 
 void TMXMap::printData()
 {
-	std::cout << "\nTest map settings:"
-		<< "\nVersion: " << m_version
+	std::cout << "\nVersion: " << m_version
 		<< "\nOrientation: " << m_orientation
 		<< "\nWidth: " << m_width
 		<< "\nHeight: " << m_height

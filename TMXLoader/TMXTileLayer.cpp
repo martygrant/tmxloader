@@ -69,14 +69,16 @@ void TMXTileLayer::printData()
 		std::cout << "\n" << index->first << " - " << index->second << std::endl;
 	}
 
-	std::cout << "\nTiles: ";
+	std::cout << "\nTiles:\n";
     unsigned int count = 0;
-	for (unsigned int index = 0; index < m_width; ++index)
+	for (unsigned int row = 0; row < m_width; ++row)
 	{
-        for (unsigned int j = 0; j < m_height; ++j)
+        for (unsigned int column = 0; column < m_height; ++column)
         {
-            std::cout << "\n Tile " << count << ": " << m_tileArray[index][j];
-            ++count;
+            //std::cout << "\n Tile " << count << ": " << m_tileArray[row][column];
+            //++count;
+            std::cout << m_tileArray[row][column] << " ";
         }
+        std::cout << std::endl;
 	}
 }
