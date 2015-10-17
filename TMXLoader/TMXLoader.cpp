@@ -281,16 +281,14 @@ void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_nod
         int numberOfTilesInRow = map->getWidth();
         int currentTile = 0;
         int currentRow = 0;
+        
         // Loop whilst there are still tiles to be read and add them to the vector
         while (currentNode != nullptr)
         {
             if (currentTile < numberOfTilesInRow)
             {
+                tiles.back()[currentRow][currentTile] = std::stoul(currentNode->first_attribute()->value());
                 
-                std::stringstream ss; ss << currentNode->first_attribute()->value();
-                unsigned int tile; ss >> tile;
-                tiles.back()[currentRow][currentTile] = tile;
-
                 currentTile++;
                 if (currentNode->next_sibling("tile") == nullptr)
                     break;
@@ -355,7 +353,6 @@ bool TMXLoader::loadFile(std::string filePath, std::string &fileContents)
         
         return true;
     }
-
     return false;
 }
 
