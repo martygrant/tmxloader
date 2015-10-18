@@ -19,6 +19,59 @@
 ### How do I get set up? ###
 
 * [Clone](https://martingrant@bitbucket.org/martingrant/tmxloader.git) the repository using git, or [Download](https://bitbucket.org/martingrant/tmxloader/downloads) the full repository.
+* Demo code is provided using SDL to help you get started.
+
+### Using the code ###
+
+* Export your Tilemap using XML
+* The following code snippet shows how to get access to your map's data:
+```
+#!c++
+
+TMXLoader* loader = new Loader();
+loader->loadMap("testmap", "Assets/testmap.tmx"); 
+loader->printMapData("testmap"); // prints map data to console, useful for debugging
+
+loader->getMap("testmap"); // gets a map loaded and held by TMXLoader
+loader->getMap("testmap")->getVersion();
+loader->getMap("testmap")->getOrientation();
+loader->getMap("testmap")->getWidth();
+loader->getMap("testmap")->getHeight();
+loader->getMap("testmap")->getTileWidth();
+loader->getMap("testmap")->getTileHeight();
+loader->getMap("testmap")->getBackgroundColourArray();
+loader->getMap("testmap")->getRenderOrder();
+
+loader->getMap("testmap")->getTileSet("defaulttileset")->getName();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getSource();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getFirstGID();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getLastGID();
+
+loader->getMap("testmap")->getTileSet("defaulttileset")->getImageWidth();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getImageHeight();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTileWidth();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTileHeight();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getSpacing();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getMargin();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getOffsetX();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getOffsetY();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTransparentColourArray();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTileCount();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getProperty("property1");
+
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTile(1);
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTile(1)->getProperty("tileproperty1");
+
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getName();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getWidth();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getHeight();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getTileVector();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getProperty();
+ 
+```
+
+
+
 
 ### Usage ###
 
