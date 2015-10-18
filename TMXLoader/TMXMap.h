@@ -71,6 +71,7 @@ private:
 	/* TileSets */
 public:
 	void addTileSet(TMXTileSet newTileSet);
+    TMXTileSet* getTileSet(std::string tileSetName);
 
 private:
 	std::vector<TMXTileSet> m_tileSetVector;

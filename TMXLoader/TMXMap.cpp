@@ -109,6 +109,22 @@ void TMXMap::addTileSet(TMXTileSet newTileSet)
 }
 
 
+TMXTileSet* TMXMap::getTileSet(std::string tileSetName)
+{
+    for (unsigned int index = 0; index < m_tileSetVector.size(); ++index)
+    {
+        if (m_tileSetVector[index].getName() == tileSetName)
+        {
+            return &m_tileSetVector[index];
+        }
+    }
+    
+    std::cout << "TMXLoader: tileset layer '" << tileSetName << "' could not be found." << std::endl;
+    
+    return nullptr;
+}
+
+
 void TMXMap::addLayer(TMXTileLayer newLayer)
 {
 	m_layerVector.push_back(newLayer);
