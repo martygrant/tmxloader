@@ -64,7 +64,12 @@ loader->getMap("testmap")->getTileSet("defaulttileset")->getProperty("property1"
 loader->getMap("testmap")->getTileSet("defaulttileset")->getTile(1);
 loader->getMap("testmap")->getTileSet("defaulttileset")->getTile(1)->getProperty("tileproperty1");
 
-loader->getMap("testmap")->getTile
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getName();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getWidth();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getHeight();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getTileVector();
+loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getProperty();
+
 
 
 
