@@ -25,6 +25,7 @@
 
 * Export your Tilemap using XML
 * The following code snippet shows how to get access to your map's data:
+* TMXLoader stores a collection of TMXMaps, so you can load a group of maps and access their data later as you please.
 ```
 #!c++
 
@@ -69,8 +70,6 @@ loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getTileVector();
 loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getProperty();
  
 ```
-
-
 
 
 ### Usage ###
