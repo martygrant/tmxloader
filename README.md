@@ -59,6 +59,14 @@ loader->getMap("testmap")->getTileSet("defaulttileset")->getOffsetX();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getOffsetY();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getTransparentColourArray();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getTileCount();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getProperty("property1");
+
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTile(1);
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTile(1)->getProperty("tileproperty1");
+
+loader->getMap("testmap")->getTile
+
+
 
 
 loader->getMap("testmap")->getLayer();
