@@ -29,7 +29,7 @@
 #!c++
 
 TMXLoader* loader = new Loader();
-loader->loadMap("testmap", "Assets/testmap.tmx"); // loads and stores a map, provide a name to access the map later, and its filepath to be loaded from
+loader->loadMap("testmap", "Assets/testmap.tmx"); 
 loader->printMapData("testmap"); // prints map data to console, useful for debugging
 
 loader->getMap("testmap"); // gets a map loaded and held by TMXLoader
@@ -46,8 +46,6 @@ loader->getMap("testmap")->getTileSet("defaulttileset")->getName();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getSource();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getFirstGID();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getLastGID();
-
-
 
 loader->getMap("testmap")->getTileSet("defaulttileset")->getImageWidth();
 loader->getMap("testmap")->getTileSet("defaulttileset")->getImageHeight();
@@ -69,12 +67,6 @@ loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getWidth();
 loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getHeight();
 loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getTileVector();
 loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getProperty();
-
-
-
-
-
-loader->getMap("testmap")->getLayer();
  
 ```
 
