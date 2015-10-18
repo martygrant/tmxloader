@@ -41,7 +41,28 @@ loader->getMap("testmap")->getTileWidth();
 loader->getMap("testmap")->getTileHeight();
 loader->getMap("testmap")->getBackgroundColourArray();
 loader->getMap("testmap")->getRenderOrder();
-loader->getMap("testmap")->getLayer(); 
+
+loader->getMap("testmap")->getTileSet("defaulttileset")->getName();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getSource();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getFirstGID();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getLastGID();
+
+
+
+loader->getMap("testmap")->getTileSet("defaulttileset")->getImageWidth();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getImageHeight();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTileWidth();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTileHeight();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getSpacing();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getMargin();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getOffsetX();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getOffsetY();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTransparentColourArray();
+loader->getMap("testmap")->getTileSet("defaulttileset")->getTileCount();
+
+
+loader->getMap("testmap")->getLayer();
+ 
 ```
 
 
