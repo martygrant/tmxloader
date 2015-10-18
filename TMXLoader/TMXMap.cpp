@@ -131,7 +131,7 @@ void TMXMap::addLayer(TMXTileLayer newLayer)
 }
 
 
-TMXTileLayer* TMXMap::getLayer(std::string layerName)
+TMXTileLayer* TMXMap::getTileLayer(std::string layerName)
 {
     for (unsigned int index = 0; index < m_layerVector.size(); ++index)
     {

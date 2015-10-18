@@ -37,6 +37,7 @@ public:
 	unsigned int getWidth();
 	unsigned int getHeight();
     std::vector<std::vector<unsigned int>> getTileVector();
+    std::string getPropery(std::string propertyName);
     
     /* Debug functions */
 public:

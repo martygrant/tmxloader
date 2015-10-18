@@ -30,6 +30,11 @@ public:
 	TMXTile(unsigned int tileID, std::unordered_map<std::string, std::string>& propertiesMap);
 	~TMXTile();
 
+    /* Getter functions */
+public:
+    unsigned int getTileID();
+    std::string getProperty(std::string propertyName);
+    
     /* Debug functions */
 public:
 	void printData();

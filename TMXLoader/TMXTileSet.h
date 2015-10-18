@@ -34,8 +34,8 @@ public:
 	TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData, std::unordered_map<std::string, std::string>& propertiesMap, std::vector<TMXTile>& tileVector);
 	~TMXTileSet();
 
+    /* Getter functions */
 public:
-	/* Getter functions */
 	std::string getName();
 	std::string getSource();
 	unsigned int getFirstGID();
@@ -50,6 +50,8 @@ public:
 	unsigned int getOffsetY();
     std::array<unsigned int, 3> getTransparentColourArray();
     unsigned int getTileCount();
+    std::string getProperty(std::string propertyName);
+    TMXTile* getTile(unsigned int tileID);
 
     /* Debug functions */
 public:

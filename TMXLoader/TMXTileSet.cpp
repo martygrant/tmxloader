@@ -136,6 +136,39 @@ unsigned int TMXTileSet::getTileCount()
 }
 
 
+std::string TMXTileSet::getProperty(std::string propertyName)
+{
+    std::unordered_map<std::string, std::string>::const_iterator iterator = m_propertiesMap.find(propertyName);
+    
+    if (iterator == m_propertiesMap.end())
+    {
+        std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
+    }
+    else
+    {
+        return iterator->second;
+    }
+    
+    return nullptr;
+}
+
+
+TMXTile* TMXTileSet::getTile(unsigned int tileID)
+{
+    for (unsigned int index = 0; index < m_lastGID; ++index)
+    {
+        if (tileID == m_tileVector[tileID].getTileID())
+        {
+            return &m_tileVector[tileID];
+        }
+    }
+    
+    std::cout << "TMXLoader: tile with ID '" << tileID << "' not found." << std::endl;
+    
+    return nullptr;
+}
+
+
 void TMXTileSet::printData()
 {
 	std::cout << "\nName: " << m_name

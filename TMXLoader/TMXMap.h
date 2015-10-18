@@ -79,7 +79,7 @@ private:
 	/* Layers */
 public:
 	void addLayer(TMXTileLayer newLayer);
-    TMXTileLayer* getLayer(std::string layerName);
+    TMXTileLayer* getTileLayer(std::string layerName);
 
 private:
 	std::vector<TMXTileLayer> m_layerVector;

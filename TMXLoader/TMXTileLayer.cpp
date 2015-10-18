@@ -59,6 +59,23 @@ std::vector<std::vector<unsigned int>> TMXTileLayer::getTileVector()
 }
 
 
+std::string TMXTileLayer::getPropery(std::string propertyName)
+{
+    std::unordered_map<std::string, std::string>::const_iterator iterator = m_layerProperties.find(propertyName);
+    
+    if (iterator == m_layerProperties.end())
+    {
+        std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
+    }
+    else
+    {
+        return iterator->second;
+    }
+    
+    return nullptr;
+}
+
+
 void TMXTileLayer::printData()
 {
 	std::cout << "\nName: " << m_name

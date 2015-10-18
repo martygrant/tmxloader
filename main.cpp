@@ -62,7 +62,7 @@ void render(SDL_Renderer* renderer, SDL_Texture* texture, TMXLoader* loader)
         for (int j = 0; j < loader->getMap("testmap")->getHeight(); ++j)
         {
             // get the tile at current position
-            tileID = loader->getMap("testmap")->getLayer("Tile Layer 1")->getTileVector()[i][j];
+            tileID = loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getTileVector()[i][j];
             
             // only render if it is an actual tile (tileID = 0 means no tile / don't render anything here)
             if (tileID > 0)

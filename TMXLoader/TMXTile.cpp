@@ -32,6 +32,29 @@ TMXTile::~TMXTile()
 }
 
 
+unsigned int TMXTile::getTileID()
+{
+    return m_tileID;
+}
+
+
+std::string TMXTile::getProperty(std::string propertyName)
+{
+    std::unordered_map<std::string, std::string>::const_iterator iterator = m_propertiesMap.find(propertyName);
+    
+    if (iterator == m_propertiesMap.end())
+    {
+        std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
+    }
+    else
+    {
+        return iterator->second;
+    }
+    
+    return nullptr;
+}
+
+
 void TMXTile::printData()
 {
 	std::cout << "Tile ID: " << m_tileID << "\n Tile Properties: " << std::endl;
