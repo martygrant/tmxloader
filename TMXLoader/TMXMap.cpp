@@ -115,17 +115,19 @@ void TMXMap::addLayer(TMXTileLayer newLayer)
 }
 
 
-TMXTileLayer TMXMap::getLayer(std::string layerName)
+TMXTileLayer* TMXMap::getLayer(std::string layerName)
 {
     for (unsigned int index = 0; index < m_layerVector.size(); ++index)
     {
         if (m_layerVector[index].getName() == layerName)
         {
-            return m_layerVector[index];
+            return &m_layerVector[index];
         }
     }
-    // todo implement null object pattern
-    return m_layerVector.front();
+    
+    std::cout << "TMXLoader: tile layer '" << layerName << "' could not be found." << std::endl;
+    
+    return nullptr;
 }
 
 

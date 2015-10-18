@@ -32,6 +32,7 @@ class TMXMap
 	/* Class constructors & destructors */
 public:
 	TMXMap();
+    TMXMap(TMXMap& other) { }
 	~TMXMap();
 
     /* Setter functions for map settings */
@@ -77,7 +78,7 @@ private:
 	/* Layers */
 public:
 	void addLayer(TMXTileLayer newLayer);
-    TMXTileLayer getLayer(std::string layerName);
+    TMXTileLayer* getLayer(std::string layerName);
 
 private:
 	std::vector<TMXTileLayer> m_layerVector;

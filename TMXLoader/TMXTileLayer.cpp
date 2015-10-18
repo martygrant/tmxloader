@@ -20,14 +20,16 @@
 #include "TMXTileLayer.h"
 
 
-TMXTileLayer::TMXTileLayer(std::string name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, unsigned int** tileArray) : m_name(name), m_width(width),
-	m_height(height), m_layerProperties(layerProperties), m_tileArray(tileArray)
+TMXTileLayer::TMXTileLayer(std::string name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties, std::vector<std::vector<unsigned int>> tileVector) : m_name(name), m_width(width), m_height(height), m_layerProperties(layerProperties), m_tileVector(tileVector)
 {
 }
 
 
 TMXTileLayer::~TMXTileLayer()
 {
+    m_tileVector.clear();
+    std::vector<std::vector<unsigned int>>().swap(m_tileVector);
+    
     m_layerProperties.clear();
     std::unordered_map<std::string, std::string>().swap(m_layerProperties);
 }
@@ -51,9 +53,9 @@ unsigned int TMXTileLayer::getHeight()
 }
 
 
-unsigned int** TMXTileLayer::getTileArray()
+std::vector<std::vector<unsigned int>> TMXTileLayer::getTileVector()
 {
-    return m_tileArray;
+    return m_tileVector;
 }
 
 
@@ -69,15 +71,12 @@ void TMXTileLayer::printData()
 		std::cout << "\n" << index->first << " - " << index->second << std::endl;
 	}
 
-	std::cout << "\nTiles:\n";
-    unsigned int count = 0;
+	std::cout << "\nTiles: ";
 	for (unsigned int row = 0; row < m_width; ++row)
 	{
         for (unsigned int column = 0; column < m_height; ++column)
         {
-            //std::cout << "\n Tile " << count << ": " << m_tileArray[row][column];
-            //++count;
-            std::cout << m_tileArray[row][column] << " ";
+            std::cout << m_tileVector[row][column] << " ";
         }
         std::cout << std::endl;
 	}

@@ -43,7 +43,7 @@ public:
     /* Map methods */
 public:
     void loadMap(std::string mapName, std::string filePath);
-    std::unique_ptr<TMXMap> const &getMap(std::string mapName);
+    TMXMap* getMap(std::string mapName);
     
     /* Debug methods */
 public:
