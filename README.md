@@ -84,5 +84,5 @@ loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getProperty();
 If you find the code useful, or have problems/suggestions I would love to hear from you.
 
 * [@_martingrant](https://twitter.com/_martingrant)
-* www.midnightpacific.com
-* contact@midnightpacific.com
+* www.martingrant.net
+* martingrant@outlook.com
