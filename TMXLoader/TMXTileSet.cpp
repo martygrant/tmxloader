@@ -26,6 +26,7 @@ TMXTileSet::TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData
 	m_name = tileSetData["name"];
 	m_source = tileSetData["source"];
 	m_firstGID = atoi(tileSetData["firstgid"].c_str());
+	m_lastGID = m_tileVector.back().getTileID();
 	m_imageWidth = atoi(tileSetData["width"].c_str());
 	m_imageHeight = atoi(tileSetData["height"].c_str());
 	m_tileWidth = atoi(tileSetData["tilewidth"].c_str());
