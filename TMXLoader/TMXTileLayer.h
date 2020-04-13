@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -14,43 +14,37 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
-//  http://bitbucket.org/martingrant/tmxloader
+//  http://github.com/martingrant/tmxloader
 //
 
 #pragma once
 
 #include <vector>
 #include <unordered_map>
-#include <iostream>
-#include <string>
 
-class TMXTileLayer
+class TMXTileLayer final
 {
-	/* Class constructors & destructors */
 public:
-    TMXTileLayer(std::string name, unsigned int width, unsigned int height, std::unordered_map<std::string, std::string> layerProperties,               std::vector<std::vector<unsigned int>> tileVector);
-	~TMXTileLayer();
+    /* Class constructors & destructors */
+    TMXTileLayer(std::string const &name, unsigned width, unsigned height,
+                 std::unordered_map<std::string, std::string> const &layerProperties,
+                 std::vector<std::vector<unsigned>> const &tileVector);
+    ~TMXTileLayer() noexcept;
 
-	/* Getter functions  */
-public:
-	std::string getName();
-	unsigned int getWidth();
-	unsigned int getHeight();
-    std::vector<std::vector<unsigned int>> getTileVector();
-    std::string getPropery(std::string propertyName);
-    
+    /* Getter functions  */
+    unsigned getWidth() const noexcept;
+    unsigned getHeight() const noexcept;
+    std::string getName() const noexcept;
+    std::string getProperty(std::string const &propertyName) noexcept;
+    std::vector<std::vector<unsigned>> getTiles() const noexcept;
+
     /* Debug functions */
-public:
-	void printData();
+    void printData();
 
-	/* Layer variables */
 private:
-	std::string m_name;
-	unsigned int m_width;
-	unsigned int m_height;
-    std::vector<std::vector<unsigned int>> m_tileVector;
-
-	/* User-defined Properties */
-private:
-	std::unordered_map<std::string, std::string> m_layerProperties;
+    /* Layer variables */
+    unsigned m_width, m_height;
+    std::string m_name;
+    std::vector<std::vector<unsigned>> m_tileVector;
+    std::unordered_map<std::string, std::string> m_layerProperties;
 };

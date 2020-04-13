@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -14,37 +14,32 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
-//  http://bitbucket.org/martingrant/tmxloader
+//  http://github.com/martingrant/tmxloader
 //
 
 #pragma once
 
-#include <unordered_map>
 #include <string>
-#include <iostream>
+#include <unordered_map>
 
-class TMXTile
+class TMXTile final
 {
-    /* Class constructors & destructors */
 public:
-	TMXTile(unsigned int tileID, std::unordered_map<std::string, std::string>& propertiesMap);
-	~TMXTile();
+    /* Class constructors & destructors */
+    TMXTile(unsigned TileID, std::unordered_map<std::string, std::string> const &propertiesMap);
+    ~TMXTile() noexcept;
 
     /* Getter functions */
-public:
-    unsigned int getTileID();
-    std::string getProperty(std::string propertyName);
-    
+    unsigned getTileID() const noexcept;
+    std::string getProperty(std::string const &propertyName) noexcept;
+
     /* Debug functions */
-public:
-	void printData();
+    void printData();
 
-    /* Tile variables */
 private:
-	unsigned int m_tileID;
-    
+    /* TMXTile variables */
+    unsigned m_tileID;
+
     /* User-defined properties */
-private:
-	std::unordered_map<std::string, std::string> m_propertiesMap;
+    std::unordered_map<std::string, std::string> m_propertiesMap;
 };
-

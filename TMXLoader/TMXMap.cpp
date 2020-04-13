@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -14,165 +14,96 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
-//  http://bitbucket.org/martingrant/tmxloader
-//
+//  http://github.com/martingrant/tmxloader
 
+#include <iostream>
 #include "TMXMap.h"
 
+TMXMap::TMXMap() {}
 
-TMXMap::TMXMap()
-{
-}
-
-
-TMXMap::~TMXMap()
+TMXMap::~TMXMap() noexcept
 {
     m_propertiesMap.clear();
-    std::unordered_map<std::string, std::string>().swap(m_propertiesMap);
+    std::unordered_map<std::string, std::string>{}.swap(m_propertiesMap);
 
     m_tileSetVector.clear();
-    std::vector<TMXTileSet>().swap(m_tileSetVector);
-    
+    std::vector<TMXTileSet>{}.swap(m_tileSetVector);
+
     m_layerVector.clear();
-    std::vector<TMXTileLayer>().swap(m_layerVector);
+    std::vector<TMXTileLayer>{}.swap(m_layerVector);
 }
 
-
-void TMXMap::setMapSettings(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap)
+void TMXMap::setMapSettings(std::vector<std::string> const &mapData, std::unordered_map<std::string, std::string> const &mapProps) noexcept
 {
-    m_version = stoi(mapData[0]);
+    m_version = std::stoi(mapData[0]);
     m_orientation = mapData[1];
     m_renderOrder = mapData[2];
-    m_width = stoi(mapData[3]);
-    m_height = stoi(mapData[4]);
-    m_tileWidth = stoi(mapData[5]);
-    m_tileHeight = stoi(mapData[6]);
-    m_backgroundColourArray[0] = stoi(mapData[8]);
-    m_backgroundColourArray[1] = stoi(mapData[8]);
-    m_backgroundColourArray[2] = stoi(mapData[8]);
-    
-    m_propertiesMap = propertiesMap;
+    m_width = std::stoi(mapData[3]);
+    m_height = std::stoi(mapData[4]);
+    m_tileWidth = std::stoi(mapData[5]);
+    m_tileHeight = std::stoi(mapData[6]);
+
+    m_backgroundColour[0] = std::stoi(mapData[8]);
+    m_backgroundColour[1] = std::stoi(mapData[8]);
+    m_backgroundColour[2] = std::stoi(mapData[8]);
+
+    m_propertiesMap = mapProps;
 }
 
+float TMXMap::getVersion() const noexcept { return m_version; }
 
-float TMXMap::getVersion()
+unsigned TMXMap::getWidth() const noexcept { return m_width; }
+unsigned TMXMap::getHeight() const noexcept { return m_height; }
+unsigned TMXMap::getTileWidth() const noexcept { return m_tileWidth; }
+unsigned TMXMap::getTileHeight() const noexcept { return m_tileHeight; }
+
+std::array<unsigned, 3> TMXMap::getBackgroundColor() const noexcept { return m_backgroundColour; }
+
+std::string TMXMap::getOrientation() const noexcept { return m_orientation; }
+std::string TMXMap::getRenderOrder() const noexcept { return m_renderOrder; }
+
+void TMXMap::addTileSet(TMXTileSet const &newTileSet) noexcept { m_tileSetVector.push_back(newTileSet); }
+
+TMXTileSet *TMXMap::getTileSet(std::string const &tileSetName) noexcept
 {
-	return m_version;
-}
-
-
-std::string TMXMap::getOrientation()
-{
-	return m_orientation;
-}
-
-
-unsigned int TMXMap::getWidth()
-{
-	return m_width;
-}
-
-
-unsigned int TMXMap::getHeight()
-{
-	return m_height;
-}
-
-
-unsigned int TMXMap::getTileWidth()
-{
-	return m_tileWidth;
-}
-
-
-unsigned int TMXMap::getTileHeight()
-{
-	return m_tileHeight;
-}
-
-
-std::array<unsigned int, 3> TMXMap::getBackgroundColourArray()
-{
-    return m_backgroundColourArray;
-}
-
-
-std::string TMXMap::getRenderOrder()
-{
-    return m_renderOrder;
-}
-
-
-void TMXMap::addTileSet(TMXTileSet newTileSet)
-{
-	m_tileSetVector.push_back(newTileSet);
-}
-
-
-TMXTileSet* TMXMap::getTileSet(std::string tileSetName)
-{
-    for (unsigned int index = 0; index < m_tileSetVector.size(); ++index)
-    {
-        if (m_tileSetVector[index].getName() == tileSetName)
-        {
-            return &m_tileSetVector[index];
-        }
-    }
-    
+    for (unsigned idx{0}; idx < m_tileSetVector.size(); ++idx)
+        if (m_tileSetVector[idx].getName() == tileSetName)
+            return &m_tileSetVector[idx];
     std::cout << "TMXLoader: tileset layer '" << tileSetName << "' could not be found." << std::endl;
-    
     return nullptr;
 }
 
+void TMXMap::addLayer(TMXTileLayer const &newLayer) noexcept { m_layerVector.push_back(newLayer); }
 
-void TMXMap::addLayer(TMXTileLayer newLayer)
+TMXTileLayer *TMXMap::getTileLayer(std::string const &layerName) noexcept
 {
-	m_layerVector.push_back(newLayer);
-}
-
-
-TMXTileLayer* TMXMap::getTileLayer(std::string layerName)
-{
-    for (unsigned int index = 0; index < m_layerVector.size(); ++index)
-    {
-        if (m_layerVector[index].getName() == layerName)
-        {
-            return &m_layerVector[index];
-        }
-    }
-    
+    for (unsigned idx{0}; idx < m_layerVector.size(); ++idx)
+        if (m_layerVector[idx].getName() == layerName)
+            return &m_layerVector[idx];
     std::cout << "TMXLoader: tile layer '" << layerName << "' could not be found." << std::endl;
-    
     return nullptr;
 }
-
 
 void TMXMap::printData()
 {
-	std::cout << "\nVersion: " << m_version
-		<< "\nOrientation: " << m_orientation
-		<< "\nWidth: " << m_width
-		<< "\nHeight: " << m_height
-		<< "\nTile Width: " << m_tileWidth
-		<< "\nTile Height: " << m_tileHeight
-		<< "\nBackground Colour: " << m_backgroundColourArray[0] << "," << m_backgroundColourArray[1] << "," << m_backgroundColourArray[2]
-        << "\nRender Order: " << m_renderOrder;
+    std::cout << "\nVersion: " << m_version
+              << "\nOrientation: " << m_orientation
+              << "\nWidth: " << m_width
+              << "\nHeight: " << m_height
+              << "\nTile Width: " << m_tileWidth
+              << "\nTile Height: " << m_tileHeight
+              << "\nBackground Colour: " << m_backgroundColour[0] << "," << m_backgroundColour[1] << "," << m_backgroundColour[2]
+              << "\nRender Order: " << m_renderOrder;
 
-	std::cout << "\n\nTest map properties:\n";
-	for (auto index = m_propertiesMap.begin(); index != m_propertiesMap.end(); ++index)
-	{
-		std::cout << index->first << " - " << index->second << std::endl;
-	}
+    std::cout << "\n\nTest map properties:\n";
+    for (auto index{m_propertiesMap.begin()}; index != m_propertiesMap.end(); ++index)
+        std::cout << index->first << " - " << index->second << std::endl;
 
-	std::cout << "\n\nTest map tilesets:\n";
-	for (unsigned int index = 0; index < m_tileSetVector.size(); ++index)
-	{
-		m_tileSetVector[index].printData();
-	}
+    std::cout << "\n\nTest map tilesets:\n";
+    for (unsigned index{0}; index < m_tileSetVector.size(); ++index)
+        m_tileSetVector[index].printData();
 
-	std::cout << "\n\nTest map layers:\n";
-	for (unsigned int index = 0; index < m_layerVector.size(); ++index)
-	{
-		m_layerVector[index].printData();
-	}
+    std::cout << "\n\nTest map layers:\n";
+    for (unsigned index{0}; index < m_layerVector.size(); ++index)
+        m_layerVector[index].printData();
 }

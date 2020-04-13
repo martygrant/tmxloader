@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -14,52 +14,34 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
-//  http://bitbucket.org/martingrant/tmxloader
+//  http://github.com/martingrant/tmxloader
 //
 
+#include <iostream>
 #include "TMXTile.h"
 
+TMXTile::TMXTile(unsigned TileID, std::unordered_map<std::string, std::string> const &propertiesMap)
+    : m_tileID{TileID}, m_propertiesMap{propertiesMap} {}
 
-TMXTile::TMXTile(unsigned int tileID, std::unordered_map<std::string, std::string>& propertiesMap) : m_tileID(tileID), m_propertiesMap(propertiesMap)
-{
-}
-
-
-TMXTile::~TMXTile()
+TMXTile::~TMXTile() noexcept
 {
     m_propertiesMap.clear();
-    std::unordered_map<std::string, std::string>().swap(m_propertiesMap);
+    std::unordered_map<std::string, std::string>{}.swap(m_propertiesMap);
 }
 
+unsigned TMXTile::getTileID() const noexcept { return m_tileID; }
 
-unsigned int TMXTile::getTileID()
+std::string TMXTile::getProperty(std::string const &propertyName) noexcept
 {
-    return m_tileID;
-}
-
-
-std::string TMXTile::getProperty(std::string propertyName)
-{
-    std::unordered_map<std::string, std::string>::const_iterator iterator = m_propertiesMap.find(propertyName);
-    
-    if (iterator == m_propertiesMap.end())
-    {
-        std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
-    }
-    else
-    {
-        return iterator->second;
-    }
-    
+    if (auto it{m_propertiesMap.find(propertyName)}; it != m_propertiesMap.end())
+        return it->second;
     return nullptr;
 }
 
-
 void TMXTile::printData()
 {
-	std::cout << "Tile ID: " << m_tileID << "\n Tile Properties: " << std::endl;
-	for (auto index = m_propertiesMap.begin(); index != m_propertiesMap.end(); ++index)
-	{
-		std::cout << "\n" << index->first << " - " << index->second << std::endl;
-	}
+    std::cout << "Tile ID: " << m_tileID << "\n Tile Properties: " << std::endl;
+    for (auto index{m_propertiesMap.begin()}; index != m_propertiesMap.end(); ++index)
+        std::cout << "\n"
+                  << index->first << " - " << index->second << std::endl;
 }
