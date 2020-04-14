@@ -15,17 +15,12 @@
      * Tile-flipping
      * Image layers
 
-
-### How do I get set up? ###
-
-* [Clone](https://martingrant@bitbucket.org/martingrant/tmxloader.git) the repository using git, or [Download](https://bitbucket.org/martingrant/tmxloader/downloads) the full repository.
-* Demo code is provided using SDL to help you get started.
-
 ### Using the code ###
 
 * Export your Tilemap using XML
 * The following code snippet shows how to get access to your map's data:
 * TMXLoader stores a collection of TMXMaps, so you can load a group of maps and access their data later as you please.
+* There is an included SDL demo showing how to use the library.
 ```
 #!c++
 
@@ -74,7 +69,7 @@ loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getProperty();
 
 ### Usage ###
 
-* I am providing my code under the MIT license, meaning you can use the code however you like for free, as long as you credit me and don't hold me liable to any problems you may have with the code. See License.txt in the source for more information.
+* The library is provided under the MIT license, meaning you can use the code however you like for free, as long as you credit me and don't hold me liable to any problems you may have with the code. See License.txt in the source for more information.
 
 * The project makes use of [RapidXML](http://rapidxml.sourceforge.net/) which also comes with the MIT license. See /TMXLoader/RapidXML/License.txt
 
@@ -86,3 +81,6 @@ If you find the code useful, or have problems/suggestions I would love to hear f
 * [@_martingrant](https://twitter.com/_martingrant)
 * www.martingrant.net
 * martingrant@outlook.com
+
+### Contributors ###
+* [TerensTare](https://github.com/TerensTare)
