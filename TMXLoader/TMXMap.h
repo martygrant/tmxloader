@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -14,78 +14,59 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
-//  http://bitbucket.org/martingrant/tmxloader
+//  http://github.com/martingrant/tmxloader
 //
 
 #pragma once
 
-#include <vector>
-#include <unordered_map>
-#include <iostream>
-#include <array>
-
 #include "TMXTileSet.h"
 #include "TMXTileLayer.h"
 
-class TMXMap 
+class TMXMap final
 {
-	/* Class constructors & destructors */
 public:
-	TMXMap();
-    TMXMap(TMXMap& other) { }
-	~TMXMap();
+    /* Class constructors & destructors */
+    TMXMap();
+    ~TMXMap() noexcept;
 
     /* Setter functions for map settings */
-    void setMapSettings(const std::vector<std::string>& mapData, const std::unordered_map<std::string, std::string>& propertiesMap);
-    
-	/* Getter functions for map settings */
-public:
-	float getVersion();
-	std::string getOrientation();
-	unsigned int getWidth();
-	unsigned int getHeight();
-	unsigned int getTileWidth();
-	unsigned int getTileHeight();
-    std::array<unsigned int, 3> getBackgroundColourArray();
-    std::string getRenderOrder();
-    
+    void setMapSettings(
+        std::vector<std::string> const &mapData,
+        std::unordered_map<std::string, std::string> const &mapProps) noexcept;
+
+    /* Getter functions for map settings */
+    float getVersion() const noexcept;
+    unsigned getWidth() const noexcept;
+    unsigned getHeight() const noexcept;
+    unsigned getTileWidth() const noexcept;
+    unsigned getTileHeight() const noexcept;
+    std::array<unsigned, 3> getBackgroundColor() const noexcept;
+    std::string getOrientation() const noexcept;
+    std::string getRenderOrder() const noexcept;
+
+    /* TileSets */
+    void addTileSet(TMXTileSet const &newTileSet) noexcept;
+    TMXTileSet *getTileSet(std::string const &tileSetName) noexcept;
+
+    /* Layers */
+    void addLayer(TMXTileLayer const &newLayer) noexcept;
+    TMXTileLayer *getTileLayer(std::string const &layerName) noexcept;
+
     /* Debug functions */
-public:
-	void printData();
+    void printData();
 
+private:
     /* Map variables */
-private:
-	float m_version;
-	std::string m_orientation;
-	unsigned int m_width;
-	unsigned int m_height;
-	unsigned int m_tileWidth;
-	unsigned int m_tileHeight;
-    std::array<unsigned int, 3> m_backgroundColourArray;
+    float m_version;
+    unsigned m_width, m_height;
+    unsigned m_tileWidth, m_tileHeight;
+    std::array<unsigned, 3> m_backgroundColour;
+    std::string m_orientation;
     std::string m_renderOrder;
-    
-	/* User-defined properties */
-private:
-	std::unordered_map<std::string, std::string> m_propertiesMap;
 
-	/* TileSets */
-public:
-	void addTileSet(TMXTileSet newTileSet);
-    TMXTileSet* getTileSet(std::string tileSetName);
+    /* User-defined properties */
+    std::unordered_map<std::string, std::string> m_propertiesMap;
 
-private:
-	std::vector<TMXTileSet> m_tileSetVector;
-
-	/* Layers */
-public:
-	void addLayer(TMXTileLayer newLayer);
-    TMXTileLayer* getTileLayer(std::string layerName);
-
-private:
-	std::vector<TMXTileLayer> m_layerVector;
+    std::vector<TMXTileLayer> m_layerVector;
+    std::vector<TMXTileSet> m_tileSetVector;
 };
-
-
-
-
-

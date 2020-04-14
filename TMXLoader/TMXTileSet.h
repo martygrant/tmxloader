@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -14,68 +14,58 @@
 //  www.midnightpacific.com
 //  contact@midnightpacific.com
 //  @_martingrant
-//  http://bitbucket.org/martingrant/tmxloader
+//  http://github.com/martingrant/tmxloader
 //
 
 #pragma once
 
-#include <vector>
-#include <iostream>
-#include <unordered_map>
-#include <string>
 #include <array>
-
+#include <vector>
 #include "TMXTile.h"
 
-class TMXTileSet
+class TMXTileSet final
 {
+public:
 	/* Class constructors & destructors */
-public:
-	TMXTileSet(std::unordered_map<std::string, std::string>& tileSetData, std::unordered_map<std::string, std::string>& propertiesMap, std::vector<TMXTile>& tileVector);
-	~TMXTileSet();
+	TMXTileSet(
+		std::unordered_map<std::string, std::string> &tileSetData,
+		std::unordered_map<std::string, std::string> const &propertiesMap,
+		std::vector<TMXTile> const &tileVector);
+	~TMXTileSet() noexcept;
 
-    /* Getter functions */
-public:
-	std::string getName();
-	std::string getSource();
-	unsigned int getFirstGID();
-	unsigned int getLastGID();
-	unsigned int getImageWidth();
-	unsigned int getImageHeight();
-	unsigned int getTileWidth();
-	unsigned int getTileHeight();
-	unsigned int getSpacing();
-	unsigned int getMargin();
-	unsigned int getOffsetX();
-	unsigned int getOffsetY();
-    std::array<unsigned int, 3> getTransparentColourArray();
-    unsigned int getTileCount();
-    std::string getProperty(std::string propertyName);
-    TMXTile* getTile(unsigned int tileID);
+	/* Getter functions */
+	unsigned getFirstGID() const noexcept;
+	unsigned getLastGID() const noexcept;
+	unsigned getImageWidth() const noexcept;
+	unsigned getImageHeight() const noexcept;
+	unsigned getTileWidth() const noexcept;
+	unsigned getTileHeight() const noexcept;
+	unsigned getSpacing() const noexcept;
+	unsigned getMargin() const noexcept;
+	unsigned getOffsetX() const noexcept;
+	unsigned getOffsetY() const noexcept;
+	unsigned getTileCount() const noexcept;
+	std::array<unsigned, 3> getTransparentColour() const noexcept; // (maybe) return a SDL_Color ??
+	std::string getName() const noexcept;
+	std::string getSource() const noexcept;
+	std::string getProperty(std::string const &propertyName) noexcept;
+	TMXTile *getTile(unsigned tileID) noexcept;
 
-    /* Debug functions */
-public:
+	/* Debug functions */
 	void printData();
 
-	/* TileSet variables */
 private:
+	unsigned m_firstGID, m_lastGID;
+	unsigned m_imageWidth, m_imageHeight;
+	unsigned m_tileWidth, m_tileHeight;
+	unsigned m_spacing;
+	unsigned m_margin;
+	unsigned m_offsetX;
+	unsigned m_offsetY;
+	unsigned m_tileCount;
+	std::array<unsigned, 3> m_transparentColour;
 	std::string m_name;
 	std::string m_source;
-	unsigned int m_firstGID;
-	unsigned int m_lastGID;
-	unsigned int m_imageWidth;
-	unsigned int m_imageHeight;
-	unsigned int m_tileWidth;
-	unsigned int m_tileHeight;
-	unsigned int m_spacing;
-	unsigned int m_margin;
-	unsigned int m_offsetX;
-	unsigned int m_offsetY;
-    std::array<unsigned int, 3> m_transparentColourArray;
-    unsigned int m_tileCount;
+	std::unordered_map<std::string, std::string> m_propertiesMap;
 	std::vector<TMXTile> m_tileVector;
-    
-    /* User-defined properties */
-private:
-    std::unordered_map<std::string, std::string> m_propertiesMap;
 };
