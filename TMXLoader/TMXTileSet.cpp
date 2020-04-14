@@ -20,36 +20,33 @@
 #include "TMXTileSet.h"
 
 TMXTileSet::TMXTileSet(
-    std::unordered_map<std::string, std::string> &tileSetData,
-    std::unordered_map<std::string, std::string> const &propertiesMap,
-    std::vector<TMXTile> const &tileVector)
-    : m_propertiesMap{propertiesMap}, m_tileVector{tileVector},
-      m_name{tileSetData["name"]}, m_source{tileSetData["source"]},
-      m_firstGID{std::stoul(tileSetData["firstgid"])},
-      m_lastGID{tileVector.back().getTileID()},
-      m_imageWidth{std::stoul(tileSetData["width"])},
-      m_imageHeight{std::stoul(tileSetData["height"])},
-      m_tileWidth{std::stoul(tileSetData["tilewidth"])},
-      m_tileHeight{std::stoul(tileSetData["tileheight"])},
-      m_offsetX{std::stoul(tileSetData["tileoffsetX"])},
-      m_offsetY{std::stoul(tileSetData["tileoffsetY"])},
-      m_spacing{std::stoul(tileSetData["spacing"])},
-      m_margin{std::stoul(tileSetData["margin"])},
-      m_tileCount{std::stoul(tileSetData["tilecount"])},
-      m_transparentColour{
-          std::stoul(tileSetData["red"]),
-          std::stoul(tileSetData["green"]),
-          std::stoul(tileSetData["blue"])}
-{
-}
+	std::unordered_map<std::string, std::string> &tileSetData,
+	std::unordered_map<std::string, std::string> const &propertiesMap,
+	std::vector<TMXTile> const &tileVector)
+	: m_propertiesMap{propertiesMap}, m_tileVector{tileVector},
+	  m_name{tileSetData["m_name"]}, m_source{tileSetData["source"]},
+	  m_firstGID{std::atoi(tileSetData["firstgid"].c_str())},
+	  m_lastGID{tileVector.back().getTileID()},
+	  m_imageWidth{std::atoi(tileSetData["width"].c_str())},
+	  m_imageHeight{std::atoi(tileSetData["height"].c_str())},
+	  m_tileWidth{std::atoi(tileSetData["Tilewidth"].c_str())},
+	  m_tileHeight{std::atoi(tileSetData["Tileheight"].c_str())},
+	  m_offsetX{std::atoi(tileSetData["TileoffsetX"].c_str())},
+	  m_offsetY{std::atoi(tileSetData["TileoffsetY"].c_str())},
+	  m_spacing{std::atoi(tileSetData["spacing"].c_str())},
+	  m_margin{std::atoi(tileSetData["margin"].c_str())},
+	  m_tileCount{std::atoi(tileSetData["Tilecount"].c_str())},
+	  m_transparentColour{std::atoi(tileSetData["red"].c_str()),
+						  std::atoi(tileSetData["green"].c_str()),
+						  std::atoi(tileSetData["blue"].c_str())} {}
 
 TMXTileSet::~TMXTileSet() noexcept
 {
-    m_propertiesMap.clear();
-    std::unordered_map<std::string, std::string>{}.swap(m_propertiesMap);
+	m_propertiesMap.clear();
+	std::unordered_map<std::string, std::string>{}.swap(m_propertiesMap);
 
-    m_tileVector.clear();
-    std::vector<TMXTile>{}.swap(m_tileVector);
+	m_tileVector.clear();
+	std::vector<TMXTile>{}.swap(m_tileVector);
 }
 
 unsigned TMXTileSet::getFirstGID() const noexcept { return m_firstGID; }
@@ -76,45 +73,45 @@ std::string TMXTileSet::getSource() const noexcept { return m_source; }
 
 std::string TMXTileSet::getProperty(std::string const &propertyName) noexcept
 {
-    if (std::unordered_map<std::string, std::string>::const_iterator it{m_propertiesMap.find(propertyName)};
-        it != m_propertiesMap.end())
-        return it->second;
-    std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
-    return "";
+	if (std::unordered_map<std::string, std::string>::const_iterator it{m_propertiesMap.find(propertyName)};
+		it != m_propertiesMap.end())
+		return it->second;
+	std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
+	return "";
 }
 
-TMXTile *TMXTileSet::getTile(unsigned id) noexcept
+TMXTile *TMXTileSet::getTile(unsigned id)
 {
-    for (unsigned idx{0}; idx < m_lastGID; ++idx)
-        if (id == m_tileVector[id].getTileID())
-            return &m_tileVector[id];
-    std::cout << "TMXLoader: tile with ID '" << id << "' not found." << std::endl;
-    return nullptr;
+	for (unsigned idx{0}; idx < m_lastGID; ++idx)
+		if (id == m_tileVector[id].getTileID())
+			return &m_tileVector[id];
+	std::cout << "TMXLoader: tile with ID '" << id << "' not found." << std::endl;
+	return nullptr;
 }
 
 void TMXTileSet::printData()
 {
-    std::cout << "\nName: " << m_name
-              << "\nSource: " << m_source
-              << "\nfirstGID: " << m_firstGID
-              << "\nlastGID: " << m_lastGID
-              << "\nimageWidth:" << m_imageWidth
-              << "\nimageHeight: " << m_imageHeight
-              << "\ntileWidth: " << m_tileWidth
-              << "\ntileHeight: " << m_tileHeight
-              << "\nSpacing: " << m_spacing
-              << "\nMargin: " << m_margin
-              << "\noffsetX: " << m_offsetX
-              << "\noffsetY: " << m_offsetY
-              << "\ntransparentColour: " << m_transparentColour[0] << "," << m_transparentColour[1] << "," << m_transparentColour[2]
-              << "\nTile Count: " << m_tileCount;
+	std::cout << "\nName: " << m_name
+			  << "\nSource: " << m_source
+			  << "\nfirstGID: " << m_firstGID
+			  << "\nlastGID: " << m_lastGID
+			  << "\nimageWidth:" << m_imageWidth
+			  << "\nimageHeight: " << m_imageHeight
+			  << "\ntileWidth: " << m_tileWidth
+			  << "\ntileHeight: " << m_tileHeight
+			  << "\nSpacing: " << m_spacing
+			  << "\nMargin: " << m_margin
+			  << "\noffsetX: " << m_offsetX
+			  << "\noffsetY: " << m_offsetY
+			  << "\ntransparentColour: " << m_transparentColour[0] << "," << m_transparentColour[1] << "," << m_transparentColour[2]
+			  << "\nTile Count: " << m_tileCount;
 
-    std::cout << "\n Tileset properties:";
-    for (auto index{m_propertiesMap.begin()}; index != m_propertiesMap.end(); ++index)
-        std::cout << "\n"
-                  << index->first << " - " << index->second << std::endl;
+	std::cout << "\n Tileset properties:";
+	for (auto index{m_propertiesMap.begin()}; index != m_propertiesMap.end(); ++index)
+		std::cout << "\n"
+				  << index->first << " - " << index->second << std::endl;
 
-    std::cout << "\n Tile properties:";
-    for (unsigned index{0}; index < m_tileVector.size(); ++index)
-        m_tileVector[index].printData();
+	std::cout << "\n Tile properties:";
+	for (unsigned index{0}; index < m_tileVector.size(); ++index)
+		m_tileVector[index].printData();
 }

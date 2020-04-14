@@ -45,12 +45,12 @@ public:
     std::string getRenderOrder() const noexcept;
 
     /* TileSets */
-    void addTileSet(TMXTileSet const &newTileSet) noexcept;
-    TMXTileSet *getTileSet(std::string const &tileSetName) noexcept;
+    void addTileset(TMXTileSet const &newTileSet) noexcept;
+    TMXTileSet *getTileset(std::string const &tileSetName) noexcept;
 
     /* Layers */
     void addLayer(TMXTileLayer const &newLayer) noexcept;
-    TMXTileLayer *getTileLayer(std::string const &layerName) noexcept;
+    TMXTileLayer *getLayer(std::string const &layerName) noexcept;
 
     /* Debug functions */
     void printData();
@@ -68,5 +68,5 @@ private:
     std::unordered_map<std::string, std::string> m_propertiesMap;
 
     std::vector<TMXTileLayer> m_layerVector;
-    std::vector<TMXTileSet> m_tileSetVector;
+    std::vector<TMXTileSet> m_tileVector;
 };

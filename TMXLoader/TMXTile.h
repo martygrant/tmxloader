@@ -38,7 +38,7 @@ public:
 
 private:
     /* TMXTile variables */
-    unsigned m_tileID;
+    unsigned m_TileID;
 
     /* User-defined properties */
     std::unordered_map<std::string, std::string> m_propertiesMap;
