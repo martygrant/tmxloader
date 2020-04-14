@@ -21,7 +21,7 @@
 #include "TMXTile.h"
 
 TMXTile::TMXTile(unsigned TileID, std::unordered_map<std::string, std::string> const &propertiesMap)
-    : m_tileID{TileID}, m_propertiesMap{propertiesMap} {}
+    : m_tileID{id_}, m_propertiesMap{propertiesMap} {}
 
 TMXTile::~TMXTile() noexcept
 {
@@ -36,12 +36,4 @@ std::string TMXTile::getProperty(std::string const &propertyName) noexcept
     if (auto it{m_propertiesMap.find(propertyName)}; it != m_propertiesMap.end())
         return it->second;
     return nullptr;
-}
-
-void TMXTile::printData()
-{
-    std::cout << "Tile ID: " << m_tileID << "\n Tile Properties: " << std::endl;
-    for (auto index{m_propertiesMap.begin()}; index != m_propertiesMap.end(); ++index)
-        std::cout << "\n"
-                  << index->first << " - " << index->second << std::endl;
 }

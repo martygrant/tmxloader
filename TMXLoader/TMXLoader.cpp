@@ -3,7 +3,7 @@
 //  TMXLoader
 //
 //  Created by Marty on 06/09/2015.
-//  Copyright (c) 2015 Martin Grant. All rights reserved.
+//  Copyright (c) 2015 - 2020 Martin Grant. All rights reserved.
 //  Available under MIT license. See License.txt for more information.
 //
 //  Uses RapidXML for file parsing.
@@ -17,96 +17,101 @@
 //  http://bitbucket.org/martingrant/tmxloader
 //
 
-#include <iostream>
 #include "TMXLoader.h"
+
 
 TMXLoader::TMXLoader()
 {
 }
 
+
 TMXLoader::~TMXLoader()
 {
-	m_mapContainer.clear();
-	std::unordered_map<std::string, std::unique_ptr<TMXMap>>().swap(m_mapContainer);
+    m_mapContainer.clear();
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>>().swap(m_mapContainer);
 }
+
 
 void TMXLoader::loadMap(std::string mapName, std::string filePath)
 {
-	// String to hold file contents
-	std::string fileContents = "";
-
-	// Attempt to load file using provided file path
-	bool fileLoaded = loadFile(filePath, fileContents);
-
-	if (fileLoaded == true)
-	{
-		// Create new RapidXML document instance to use to parse map data
-		rapidxml::xml_document<char> m_currentMap;
-		m_currentMap.parse<0>((char *)fileContents.c_str());
-		rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
-
-		// Add new TMXMap to m_mapContainer
-		m_mapContainer[mapName] = std::unique_ptr<TMXMap>(new TMXMap());
-
-		// Load the map settings, tilesets and layers
-		loadMapSettings(m_mapContainer[mapName], parentNode);
-		loadTileSets(m_mapContainer[mapName], parentNode);
-		loadLayers(m_mapContainer[mapName], parentNode);
-
-		std::cout << "TMXLoader: loaded map '" << mapName << "' from: '" << filePath << "' successfully" << std::endl;
-	}
-	else
-	{
-		std::cout << "TMXLoader: map '" << mapName << "' at '" << filePath << "' could not be loaded." << std::endl;
-	}
+    // String to hold file contents
+    std::string fileContents = "";
+    
+    // Attempt to load file using provided file path
+    bool fileLoaded = loadFile(filePath, fileContents);
+    
+    if (fileLoaded == true)
+    {
+        // Create new RapidXML document instance to use to parse map data
+        rapidxml::xml_document<char> m_currentMap;
+        m_currentMap.parse<0>((char*)fileContents.c_str());
+        rapidxml::xml_node<> *parentNode = m_currentMap.first_node("map");
+        
+        // Add new TMXMap to m_mapContainer
+        m_mapContainer[mapName] = std::unique_ptr<TMXMap>(new TMXMap());
+        
+        // Load the map settings, tilesets and layers
+        loadMapSettings(m_mapContainer[mapName], parentNode);
+        loadTileSets(m_mapContainer[mapName], parentNode);
+        loadLayers(m_mapContainer[mapName], parentNode);
+        
+        std::cout << "TMXLoader: loaded map '" << mapName << "' from: '" << filePath << "' successfully" << std::endl;
+    }
+    else
+    {
+        std::cout << "TMXLoader: map '" << mapName << "' at '" << filePath << "' could not be loaded." << std::endl;
+    }
 }
 
-TMXMap *TMXLoader::getMap(std::string mapName)
+
+TMXMap* TMXLoader::getMap(std::string mapName)
 {
-	// Attempt to find and return a map using provided name, else return nullptr
-
-	std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
-
-	if (iterator == m_mapContainer.end())
-	{
-		std::cout << "TMXLoader: map '" << mapName << "' not found." << std::endl;
-	}
-	else
-	{
-		return iterator->second.get();
-	}
-
-	return nullptr;
+    // Attempt to find and return a map using provided name, else return nullptr
+    
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
+    
+    if (iterator == m_mapContainer.end())
+    {
+        std::cout << "TMXLoader: map '" << mapName << "' not found." << std::endl;
+    }
+    else
+    {
+        return iterator->second.get();
+    }
+    
+    return nullptr;
 }
+
 
 void TMXLoader::printMapData(std::string mapName)
 {
-	// Attempt to print data for a specific map
-
-	std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
-
-	if (iterator == m_mapContainer.end())
-	{
-		std::cout << "TMXLoader: map '" << mapName << "' not found." << std::endl;
-	}
-	else
-	{
-		iterator->second->printData();
-	}
+    // Attempt to print data for a specific map
+    
+    std::unordered_map<std::string, std::unique_ptr<TMXMap>>::const_iterator iterator = m_mapContainer.find(mapName);
+    
+    if (iterator == m_mapContainer.end())
+    {
+        std::cout << "TMXLoader: map '" << mapName << "' not found." << std::endl;
+    }
+    else
+    {
+        iterator->second->printData();
+    }
 }
+
 
 void TMXLoader::loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
 	// Vector to hold map settings (version, orientation, width, height etc.)
-	std::vector<std::string> mapData;
+    std::vector<std::string> mapData;
 
-	// Push found settings onto back of vector, which are attributes of first xml node "map"
+    // Push found settings onto back of vector, which are attributes of first xml node "map"
 	for (rapidxml::xml_attribute<char> *attr = parentNode->first_attribute(); attr; attr = attr->next_attribute())
 	{
 		mapData.push_back(attr->value());
 	}
 
-	// Background colour is stored in hexadecimal, next few lines coverts to RGB and pushes onto vector
+    // Background colour is stored in hexadecimal, next few lines coverts to RGB and pushes onto vector
 	std::string colourString = mapData[6];
 	std::string colourSubstring = colourString.substr(1, colourString.length());
 
@@ -118,11 +123,12 @@ void TMXLoader::loadMapSettings(std::unique_ptr<TMXMap> const &map, rapidxml::xm
 
 	std::unordered_map<std::string, std::string> propertiesMap;
 
-	// Load any user-defined properties
+    // Load any user-defined properties
 	loadProperties(propertiesMap, parentNode);
-
-	map->setMapSettings(mapData, propertiesMap);
+    
+    map->setMapSettings(mapData, propertiesMap);
 }
+
 
 void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
@@ -148,7 +154,7 @@ void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_n
 		// Loop whilst there are tileset nodes found
 		while (currentNode != nullptr)
 		{
-			// Read tileset data
+			// Read tileset data 
 			for (rapidxml::xml_attribute<char> *attr = currentNode->first_attribute(); attr; attr = attr->next_attribute())
 			{
 				tileSetData[attr->name()] = attr->value();
@@ -176,8 +182,8 @@ void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_n
 				if (strcmp(attr->name(), "trans") == 0)
 				{
 					unsigned int colour = std::stoi(attr->value(), 0, 16);
-
-					// Convert from hex to RGB
+                    
+                    // Convert from hex to RGB
 					tileSetData["red"] = std::to_string(colour / 0x10000);
 					tileSetData["green"] = std::to_string((colour / 0x100) % 0x100);
 					tileSetData["blue"] = std::to_string(colour / 0x10000);
@@ -210,7 +216,7 @@ void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_n
 			}
 
 			// Pass the new tileset data to the map
-			map->addTileSet(TMXTileSet{tileSetData, propertiesMap, tileVector});
+ 			map->addTileSet(TMXTileSet(tileSetData, propertiesMap, tileVector));
 
 			// Move to the next tileset node and increment the counter
 			if (currentNode->parent()->next_sibling("tileset") == nullptr)
@@ -226,6 +232,7 @@ void TMXLoader::loadTileSets(std::unique_ptr<TMXMap> const &map, rapidxml::xml_n
 	}
 }
 
+
 void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_node<> *parentNode)
 {
 	// Create a new node based on the parent node
@@ -233,29 +240,29 @@ void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_nod
 
 	// Move to first layer node
 	currentNode = currentNode->first_node("layer");
+    
+    std::vector<char*> layerVector;
 
-	std::vector<char *> layerVector;
-
-	char *layerName = nullptr;
+	char* layerName = nullptr;
 	unsigned int layerWidth = 0;
 	unsigned int layerHeight = 0;
 	std::unordered_map<std::string, std::string> layerProperties;
 
 	while (currentNode != nullptr)
 	{
-		// Clear these both to hold data for the next layer
+        // Clear these both to hold data for the next layer
 		layerProperties.clear();
-		layerVector.clear();
-
+        layerVector.clear();
+        
 		// Read data into the current layer vector
 		for (rapidxml::xml_attribute<char> *attr = currentNode->first_attribute(); attr; attr = attr->next_attribute())
 		{
-			layerVector.push_back(attr->value());
+            layerVector.push_back(attr->value());
 		}
-
-		layerName = layerVector[0];
-		layerWidth = atoi(layerVector[1]);
-		layerHeight = atoi(layerVector[2]);
+        
+        layerName = layerVector[0];
+        layerWidth = atoi(layerVector[1]);
+        layerHeight = atoi(layerVector[2]);
 
 		// Load any properties for the layer
 		loadProperties(layerProperties, currentNode);
@@ -264,44 +271,46 @@ void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_nod
 		// Move to the tile nodes for the current layer
 		currentNode = currentNode->first_node("tile");
 
-		// Create 2D vector to hold tile data
-		std::vector<std::vector<unsigned int>> tileVector(layerHeight, std::vector<unsigned int>(layerWidth));
+        // Create 2D vector to hold tile data
+        std::vector<std::vector<unsigned int>> tileVector(layerHeight, std::vector<unsigned int>(layerWidth));
 
-		int currentTile = 0;
-		int currentRow = 0;
-
-		// Loop whilst there are still tiles to be read and add them to the vector
-		while (currentNode != nullptr)
-		{
-			if (currentTile < layerWidth)
-			{
-				// Add tile to vector, must be cast from char* to unsigned int
-				tileVector[currentRow][currentTile] = (unsigned int)std::stoul(currentNode->first_attribute()->value());
-
-				currentTile++;
-
-				// Determine if there is another tile to be read or not
-				if (currentNode->next_sibling("tile") == nullptr)
-					break;
-				else
-					currentNode = currentNode->next_sibling("tile");
-			}
-			else
-			{
-				currentTile = 0;
-				currentRow++;
-			}
-		}
+        int currentTile = 0;
+        int currentRow = 0;
+        
+        // Loop whilst there are still tiles to be read and add them to the vector
+        while (currentNode != nullptr)
+        {
+            if (currentTile < layerWidth)
+            {
+                // Add tile to vector, must be cast from char* to unsigned int
+                tileVector[currentRow][currentTile] = (unsigned int)std::stoul(currentNode->first_attribute()->value());
+                
+                currentTile++;
+                
+                // Determine if there is another tile to be read or not
+                if (currentNode->next_sibling("tile") == nullptr)
+                    break;
+                else
+                    currentNode = currentNode->next_sibling("tile");
+            }
+            else
+            {
+                currentTile = 0;
+                currentRow++;
+            }
+                             
+        }
 
 		// Add the newly read layer to the map
 		map->addLayer(TMXTileLayer(layerName, layerWidth, layerHeight, layerProperties, tileVector));
-
+		
 		// Move to the next layer
 		currentNode = currentNode->parent()->parent()->next_sibling("layer");
 	}
 }
 
-void TMXLoader::loadProperties(std::unordered_map<std::string, std::string> &propertiesMap, rapidxml::xml_node<> *parentNode)
+
+void TMXLoader::loadProperties(std::unordered_map<std::string, std::string>& propertiesMap, rapidxml::xml_node<> *parentNode)
 {
 	// Create a new node based on the parent node
 	rapidxml::xml_node<> *currentNode = parentNode;
@@ -323,19 +332,22 @@ void TMXLoader::loadProperties(std::unordered_map<std::string, std::string> &pro
 	}
 }
 
+
 bool TMXLoader::loadFile(std::string filePath, std::string &fileContents)
 {
-	std::ifstream file(filePath, std::ios::in | std::ios::binary);
+    std::ifstream file(filePath, std::ios::in | std::ios::binary);
 
-	if (file)
-	{
-		file.seekg(0, std::ios::end);
-		fileContents.resize(file.tellg());
-		file.seekg(0, std::ios::beg);
-		file.read(&fileContents[0], fileContents.size());
-		file.close();
-
-		return true;
-	}
-	return false;
+    if (file)
+    {
+        file.seekg(0, std::ios::end);
+        fileContents.resize(file.tellg());
+        file.seekg(0, std::ios::beg);
+        file.read(&fileContents[0], fileContents.size());
+        file.close();
+        
+        return true;
+    }
+    return false;
 }
+
+
