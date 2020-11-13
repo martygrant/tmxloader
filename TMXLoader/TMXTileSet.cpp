@@ -24,7 +24,7 @@ TMXTileSet::TMXTileSet(
 	std::unordered_map<std::string, std::string> const &propertiesMap,
 	std::vector<TMXTile> const &tileVector)
 	: m_propertiesMap{propertiesMap}, m_tileVector{tileVector},
-	  m_name{tileSetData["m_name"]}, m_source{tileSetData["source"]},
+	  m_name{tileSetData["name"]}, m_source{tileSetData["source"]},
 	  m_firstGID{std::atoi(tileSetData["firstgid"].c_str())},
 	  m_lastGID{tileVector.back().getTileID()},
 	  m_imageWidth{std::atoi(tileSetData["width"].c_str())},
