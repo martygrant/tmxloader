@@ -20,25 +20,25 @@
 #include "TMXTileSet.h"
 
 TMXTileSet::TMXTileSet(
-	std::unordered_map<std::string, std::string> &tileSetData,
+	std::unordered_map<std::string, std::string> const&tileSetData,
 	std::unordered_map<std::string, std::string> const &propertiesMap,
 	std::vector<TMXTile> const &tileVector)
 	: m_propertiesMap{propertiesMap}, m_tileVector{tileVector},
-	  m_name{tileSetData["name"]}, m_source{tileSetData["source"]},
-	  m_firstGID{std::atoi(tileSetData["firstgid"].c_str())},
+	  m_name{tileSetData.at("name")}, m_source{tileSetData.at("source")},
+	  m_firstGID{std::atoi(tileSetData.at("firstgid").c_str())},
 	  m_lastGID{tileVector.back().getTileID()},
-	  m_imageWidth{std::atoi(tileSetData["width"].c_str())},
-	  m_imageHeight{std::atoi(tileSetData["height"].c_str())},
-	  m_tileWidth{std::atoi(tileSetData["Tilewidth"].c_str())},
-	  m_tileHeight{std::atoi(tileSetData["Tileheight"].c_str())},
-	  m_offsetX{std::atoi(tileSetData["TileoffsetX"].c_str())},
-	  m_offsetY{std::atoi(tileSetData["TileoffsetY"].c_str())},
-	  m_spacing{std::atoi(tileSetData["spacing"].c_str())},
-	  m_margin{std::atoi(tileSetData["margin"].c_str())},
-	  m_tileCount{std::atoi(tileSetData["Tilecount"].c_str())},
-	  m_transparentColour{std::atoi(tileSetData["red"].c_str()),
-						  std::atoi(tileSetData["green"].c_str()),
-						  std::atoi(tileSetData["blue"].c_str())} {}
+	  m_imageWidth{std::atoi(tileSetData.at("width").c_str())},
+	  m_imageHeight{std::atoi(tileSetData.at("height").c_str())},
+	  m_tileWidth{std::atoi(tileSetData.at("tilewidth").c_str())},
+	  m_tileHeight{std::atoi(tileSetData.at("tileheight").c_str())},
+	  m_offsetX{std::atoi(tileSetData.at("tileoffsetX").c_str())},
+	  m_offsetY{std::atoi(tileSetData.at("tileoffsetY").c_str())},
+	  m_spacing{std::atoi(tileSetData.at("spacing").c_str())},
+	  m_margin{std::atoi(tileSetData.at("margin").c_str())},
+	  m_tileCount{std::atoi(tileSetData.at("tilecount").c_str())},
+	  m_transparentColour{std::atoi(tileSetData.at("red").c_str()),
+						  std::atoi(tileSetData.at("green").c_str()),
+						  std::atoi(tileSetData.at("blue").c_str())} {}
 
 TMXTileSet::~TMXTileSet() noexcept
 {
