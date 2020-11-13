@@ -28,7 +28,7 @@ class TMXTileSet final
 public:
 	/* Class constructors & destructors */
 	TMXTileSet(
-		std::unordered_map<std::string, std::string> &tileSetData,
+		std::unordered_map<std::string, std::string> const&tileSetData,
 		std::unordered_map<std::string, std::string> const &propertiesMap,
 		std::vector<TMXTile> const &tileVector);
 	~TMXTileSet() noexcept;
