@@ -274,7 +274,7 @@ void TMXLoader::loadLayers(std::unique_ptr<TMXMap> const &map, rapidxml::xml_nod
         // Create 2D vector to hold tile data
         std::vector<std::vector<unsigned int>> tileVector(layerHeight, std::vector<unsigned int>(layerWidth));
 
-        int currentTile = 0;
+		unsigned int currentTile = 0;
         int currentRow = 0;
         
         // Loop whilst there are still tiles to be read and add them to the vector

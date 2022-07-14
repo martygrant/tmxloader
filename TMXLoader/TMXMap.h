@@ -45,7 +45,7 @@ public:
     std::string getRenderOrder() const noexcept;
 
     /* TileSets */
-    void addTileset(TMXTileSet const &newTileSet) noexcept;
+    void addTileSet(TMXTileSet const &newTileSet) noexcept;
     TMXTileSet *getTileset(std::string const &tileSetName) noexcept;
 
     /* Layers */

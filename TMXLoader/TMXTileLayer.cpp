@@ -50,7 +50,8 @@ std::string TMXTileLayer::getProperty(std::string const &propertyName) noexcept
         it != m_layerProperties.end())
         return it->second;
     std::cout << "TMXLoader: property '" << propertyName << "' not found." << std::endl;
-    return nullptr;
+    
+    return {};
 }
 
 void TMXTileLayer::printData()

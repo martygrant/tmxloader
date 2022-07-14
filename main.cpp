@@ -56,18 +56,18 @@ void render(SDL_Renderer *renderer, SDL_Texture *texture, TMXLoader *loader)
     int tileWidth = loader->getMap("testmap")->getTileWidth();
     int tileHeight = loader->getMap("testmap")->getTileHeight();
 
-    for (int i = 0; i < loader->getMap("testmap")->getWidth(); ++i)
+    for (unsigned int i = 0; i < loader->getMap("testmap")->getWidth(); ++i)
     {
-        for (int j = 0; j < loader->getMap("testmap")->getHeight(); ++j)
+        for (unsigned int j = 0; j < loader->getMap("testmap")->getHeight(); ++j)
         {
             // get the tile at current position
-            tileID = loader->getMap("testmap")->getTileLayer("Tile Layer 1")->getTiles()[i][j];
+            tileID = loader->getMap("testmap")->getLayer("Tile Layer 1")->getTiles()[i][j];
 
             // only render if it is an actual tile (tileID = 0 means no tile / don't render anything here)
             if (tileID > 0)
             {
                 SDL_Rect srcrect = {((tileID - 1) % 3) * tileWidth, ((tileID - 1) / 3) * tileHeight, tileWidth, tileHeight};
-                SDL_Rect dstrect = {j * 25, i * 25, 25, 25};
+                SDL_Rect dstrect = {(int)j * 25, (int)i * 25, 25, 25};
                 SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
             }
         }
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
     SDL_Texture *spriteSheet = IMG_LoadTexture(renderer, "Assets/spritesheet.png");
 
     TMXLoader *loader = new TMXLoader();
-    loader->loadMap("testmap", "Assets/testmap.tmx");
+    loader->loadMap("testmap", "../../../Assets/testmap.tmx");
     loader->printMapData("testmap");
 
     bool running = true;

@@ -35,7 +35,6 @@ public:
 
 	/* Getter functions */
 	unsigned getFirstGID() const noexcept;
-	unsigned getLastGID() const noexcept;
 	unsigned getImageWidth() const noexcept;
 	unsigned getImageHeight() const noexcept;
 	unsigned getTileWidth() const noexcept;
@@ -55,7 +54,7 @@ public:
 	void printData();
 
 private:
-	unsigned m_firstGID, m_lastGID;
+	unsigned m_firstGID;
 	unsigned m_imageWidth, m_imageHeight;
 	unsigned m_tileWidth, m_tileHeight;
 	unsigned m_spacing;

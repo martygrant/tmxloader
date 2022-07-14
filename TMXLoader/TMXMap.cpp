@@ -19,7 +19,7 @@
 #include <iostream>
 #include "TMXMap.h"
 
-TMXMap::TMXMap() {}
+TMXMap::TMXMap() : m_version(0.0f), m_width(0), m_height(0), m_tileWidth(0), m_tileHeight(0), m_backgroundColour({}) {}
 
 TMXMap::~TMXMap() noexcept
 {
@@ -35,7 +35,7 @@ TMXMap::~TMXMap() noexcept
 
 void TMXMap::setMapSettings(std::vector<std::string> const &mapData, std::unordered_map<std::string, std::string> const &mapProps) noexcept
 {
-    m_version = std::stoi(mapData[0]);
+    m_version = std::stof(mapData[0]);
     m_orientation = mapData[1];
     m_renderOrder = mapData[2];
     m_width = std::stoi(mapData[3]);
@@ -62,7 +62,7 @@ std::array<unsigned, 3> TMXMap::getBackgroundColor() const noexcept { return m_b
 std::string TMXMap::getOrientation() const noexcept { return m_orientation; }
 std::string TMXMap::getRenderOrder() const noexcept { return m_renderOrder; }
 
-void TMXMap::addTileset(TMXTileSet const &newTileSet) noexcept { m_tileVector.push_back(newTileSet); }
+void TMXMap::addTileSet(TMXTileSet const &newTileSet) noexcept { m_tileVector.push_back(newTileSet); }
 
 TMXTileSet *TMXMap::getTileset(std::string const &tileSetName) noexcept
 {
@@ -73,7 +73,7 @@ TMXTileSet *TMXMap::getTileset(std::string const &tileSetName) noexcept
     return nullptr;
 }
 
-void TMXMap::addLayer(TMXTileLayer const &newLayer) noexcept { layers.push_back(newLayer); }
+void TMXMap::addLayer(TMXTileLayer const &newLayer) noexcept { m_layerVector.push_back(newLayer); }
 
 TMXTileLayer *TMXMap::getLayer(std::string const &layerName) noexcept
 {
@@ -92,7 +92,7 @@ void TMXMap::printData()
               << "\nHeight: " << m_height
               << "\nTile Width: " << m_tileWidth
               << "\nTile Height: " << m_tileHeight
-              << "\nBackground Colour: " << m_backgroundColourArray[0] << "," << m_backgroundColourArray[1] << "," << m_backgroundColourArray[2]
+              << "\nBackground Colour: " << m_backgroundColour[0] << "," << m_backgroundColour[1] << "," << m_backgroundColour[2]
               << "\nRender Order: " << m_renderOrder;
 
     std::cout << "\n\nTest map properties:\n";
@@ -102,9 +102,9 @@ void TMXMap::printData()
     }
 
     std::cout << "\n\nTest map tilesets:\n";
-    for (unsigned int index = 0; index < m_tileSetVector.size(); ++index)
+    for (unsigned int index = 0; index < m_tileVector.size(); ++index)
     {
-        m_tileSetVector[index].printData();
+        m_tileVector[index].printData();
     }
 
     std::cout << "\n\nTest map layers:\n";

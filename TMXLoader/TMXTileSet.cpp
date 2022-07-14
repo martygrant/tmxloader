@@ -25,20 +25,21 @@ TMXTileSet::TMXTileSet(
 	std::vector<TMXTile> const &tileVector)
 	: m_propertiesMap{propertiesMap}, m_tileVector{tileVector},
 	  m_name{tileSetData.at("name")}, m_source{tileSetData.at("source")},
-	  m_firstGID{std::atoi(tileSetData.at("firstgid").c_str())},
-	  m_lastGID{tileVector.back().getTileID()},
-	  m_imageWidth{std::atoi(tileSetData.at("width").c_str())},
-	  m_imageHeight{std::atoi(tileSetData.at("height").c_str())},
-	  m_tileWidth{std::atoi(tileSetData.at("tilewidth").c_str())},
-	  m_tileHeight{std::atoi(tileSetData.at("tileheight").c_str())},
-	  m_offsetX{std::atoi(tileSetData.at("tileoffsetX").c_str())},
-	  m_offsetY{std::atoi(tileSetData.at("tileoffsetY").c_str())},
-	  m_spacing{std::atoi(tileSetData.at("spacing").c_str())},
-	  m_margin{std::atoi(tileSetData.at("margin").c_str())},
-	  m_tileCount{std::atoi(tileSetData.at("tilecount").c_str())},
-	  m_transparentColour{std::atoi(tileSetData.at("red").c_str()),
-						  std::atoi(tileSetData.at("green").c_str()),
-						  std::atoi(tileSetData.at("blue").c_str())} {}
+	  m_firstGID{std::stoul(tileSetData.at("firstgid").c_str())},
+	  m_imageWidth{std::stoul(tileSetData.at("width").c_str())},
+	  m_imageHeight{std::stoul(tileSetData.at("height").c_str())},
+	  m_tileWidth{std::stoul(tileSetData.at("tilewidth").c_str())},
+	  m_tileHeight{std::stoul(tileSetData.at("tileheight").c_str())},
+	  m_offsetX{std::stoul(tileSetData.at("tileoffsetX").c_str())},
+	  m_offsetY{std::stoul(tileSetData.at("tileoffsetY").c_str())},
+	  m_spacing{std::stoul(tileSetData.at("spacing").c_str())},
+	  m_margin{std::stoul(tileSetData.at("margin").c_str())},
+	  m_tileCount{std::stoul(tileSetData.at("tilecount").c_str())},
+	  m_transparentColour{std::stoul(tileSetData.at("red").c_str()),
+						  std::stoul(tileSetData.at("green").c_str()),
+						  std::stoul(tileSetData.at("blue").c_str())} {}
+
+
 
 TMXTileSet::~TMXTileSet() noexcept
 {
@@ -50,7 +51,6 @@ TMXTileSet::~TMXTileSet() noexcept
 }
 
 unsigned TMXTileSet::getFirstGID() const noexcept { return m_firstGID; }
-unsigned TMXTileSet::getLastGID() const noexcept { return m_lastGID; }
 
 unsigned TMXTileSet::getImageWidth() const noexcept { return m_imageWidth; }
 unsigned TMXTileSet::getImageHeight() const noexcept { return m_imageHeight; }
@@ -80,9 +80,9 @@ std::string TMXTileSet::getProperty(std::string const &propertyName) noexcept
 	return "";
 }
 
-TMXTile *TMXTileSet::getTile(unsigned id)
+TMXTile *TMXTileSet::getTile(unsigned id) noexcept
 {
-	for (unsigned idx{0}; idx < m_lastGID; ++idx)
+	for (unsigned idx{0}; idx < m_tileVector.size(); ++idx)
 		if (id == m_tileVector[id].getTileID())
 			return &m_tileVector[id];
 	std::cout << "TMXLoader: tile with ID '" << id << "' not found." << std::endl;
@@ -94,7 +94,6 @@ void TMXTileSet::printData()
 	std::cout << "\nName: " << m_name
 			  << "\nSource: " << m_source
 			  << "\nfirstGID: " << m_firstGID
-			  << "\nlastGID: " << m_lastGID
 			  << "\nimageWidth:" << m_imageWidth
 			  << "\nimageHeight: " << m_imageHeight
 			  << "\ntileWidth: " << m_tileWidth
